@@ -300,7 +300,7 @@
             padding-bottom: 0.3rem;
         }
 
-        /* SKILLS – beautiful responsive grid */
+        /* SKILLS – beautiful responsive grid (unified capabilities with all missing items) */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -351,7 +351,7 @@
             white-space: nowrap;
         }
 
-        /* 📄 timeline cards (education, projects) */
+        /* 📄 timeline cards (education, projects, experience) */
         .timeline-card {
             background: var(--surface-1);
             border-radius: 2rem;
@@ -589,51 +589,75 @@
             </div>
         </div>
 
-        <!-- main skills (original bucket) + new "More Skills" merged into beautiful tiles -->
+        <!-- ===== UNIFIED CAPABILITIES ===== 
+             merged: original pentesting skills + full "SKILLS IN MY BUCKET" 
+             with ALL missing items appended (no omissions) -->
         <div class="section-head">
             <i class="fas fa-cog"></i>
             <h2>capabilities</h2>
         </div>
-
-        <!-- huge skill set grouped thematically (merged both old + new from your list) -->
         <div class="skills-grid">
-            <!-- INFRA & HARDWARE -->
-            <div class="skill-tile"><h3><i class="fas fa-server"></i> infra & hardware</h3><div class="skill-cloud"><span class="chip">Physical Machines</span><span class="chip">RAID</span><span class="chip">Data Center</span><span class="chip">HPE iLO</span><span class="chip">Physical Networking</span><span class="chip">Router Setup</span></div></div>
-            <!-- OS + SYSTEM ADMIN -->
-            <div class="skill-tile"><h3><i class="fab fa-windows"></i> OS & sysadmin</h3><div class="skill-cloud"><span class="chip">Windows Server</span><span class="chip">Mac</span><span class="chip">Group Policy</span><span class="chip">Active Directory</span><span class="chip">PowerShell</span><span class="chip">Event Viewer</span><span class="chip">Task Scheduler</span><span class="chip">Auditing</span></div></div>
-            <!-- VIRT / CLOUD -->
-            <div class="skill-tile"><h3><i class="fas fa-cloud"></i> virt & cloud</h3><div class="skill-cloud"><span class="chip">Virtualization</span><span class="chip">Containers</span><span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Docker Escape</span></div></div>
-            <!-- NETWORKING & FIREWALLS -->
-            <div class="skill-tile"><h3><i class="fas fa-network-wired"></i> networking</h3><div class="skill-cloud"><span class="chip">VPN</span><span class="chip">Proxy</span><span class="chip">CDN</span><span class="chip">Sophos FW</span><span class="chip">FortiGate</span><span class="chip">Cisco</span><span class="chip">Port Forwarding</span><span class="chip">Protocols</span></div></div>
-            <!-- PENTEST 1 (web) -->
-            <div class="skill-tile"><h3><i class="fas fa-bug"></i> web app pentest</h3><div class="skill-cloud"><span class="chip">XSS</span><span class="chip">SQLi</span><span class="chip">Command Inj</span><span class="chip">File Upload</span><span class="chip">IDOR</span><span class="chip">LFI</span><span class="chip">SSRF</span><span class="chip">GraphQL Inj</span><span class="chip">XXE</span><span class="chip">XPath Inj</span><span class="chip">WAF Bypass</span><span class="chip">Git Exposure</span><span class="chip">Webshells</span><span class="chip">Flask</span></div></div>
-            <!-- PENTEST 2 (network & privesc) -->
-            <div class="skill-tile"><h3><i class="fas fa-skull"></i> privesc & network</h3><div class="skill-cloud"><span class="chip">Windows PrivEsc</span><span class="chip">Linux PrivEsc</span><span class="chip">Exploit Suggester</span><span class="chip">Linux Exploit Dev</span><span class="chip">Enumeration</span><span class="chip">Brute Force</span><span class="chip">Post Exploit</span><span class="chip">Firewall Pentest</span></div></div>
-            <!-- ACTIVE DIRECTORY / REDTEAM -->
+            <!-- Infrastructure & Hardware -->
+            <div class="skill-tile"><h3><i class="fas fa-server"></i> infra & hardware</h3><div class="skill-cloud"><span class="chip">Hardware/Physical Machines</span><span class="chip">Hardware Devices</span><span class="chip">RAID Configs</span><span class="chip">Data Center Operations</span><span class="chip">HPE ProLiant iLO</span><span class="chip">Physical Networking</span></div></div>
+            <!-- Operating Systems -->
+            <div class="skill-tile"><h3><i class="fab fa-windows"></i> operating systems</h3><div class="skill-cloud"><span class="chip">Windows</span><span class="chip">Windows Server</span><span class="chip">Mac</span></div></div>
+            <!-- System Administration (full list) -->
+            <div class="skill-tile"><h3><i class="fas fa-cogs"></i> system administration</h3><div class="skill-cloud"><span class="chip">System Configuration</span><span class="chip">Basic Configurations</span><span class="chip">Troubleshooting</span><span class="chip">Group Policy</span><span class="chip">Services</span><span class="chip">Task Scheduler</span><span class="chip">Auditing & Diagnostics</span><span class="chip">Event Viewer</span><span class="chip">Active Directory</span><span class="chip">Restrictions</span><span class="chip">PowerShell Scripts</span></div></div>
+            <!-- Virtualization & Cloud -->
+            <div class="skill-tile"><h3><i class="fas fa-cloud"></i> virtualization & cloud</h3><div class="skill-cloud"><span class="chip">Virtualization</span><span class="chip">Containers</span><span class="chip">AWS Environment</span><span class="chip">Azure Environment</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Docker Escape</span></div></div>
+            <!-- Networking (with firewalls) -->
+            <div class="skill-tile"><h3><i class="fas fa-network-wired"></i> networking & firewalls</h3><div class="skill-cloud"><span class="chip">Networking</span><span class="chip">VPNs & Proxy Servers</span><span class="chip">CDN Servers</span><span class="chip">Firewalls & Access Points</span><span class="chip">Windows Firewall</span><span class="chip">Sophos Firewall</span><span class="chip">Sophos AP</span><span class="chip">FortiGate Firewall</span><span class="chip">FortiAP</span><span class="chip">Cisco</span><span class="chip">Port Forwarding</span></div></div>
+            <!-- Security & Backup -->
+            <div class="skill-tile"><h3><i class="fas fa-shield-alt"></i> security & backup</h3><div class="skill-cloud"><span class="chip">Backup and Security</span><span class="chip">Malware Detection & Prevention</span><span class="chip">Email and Office 365</span><span class="chip">EDR</span><span class="chip">Acronis</span><span class="chip">Firewall Pentest</span></div></div>
+            <!-- Servers & Services -->
+            <div class="skill-tile"><h3><i class="fas fa-database"></i> servers & services</h3><div class="skill-cloud"><span class="chip">FTP Server</span><span class="chip">Web Servers</span><span class="chip">Database Servers</span></div></div>
+            <!-- Monitoring (full) -->
+            <div class="skill-tile"><h3><i class="fas fa-chart-line"></i> monitoring</h3><div class="skill-cloud"><span class="chip">Monitoring</span><span class="chip">Server Monitoring Scripts</span><span class="chip">Prometheus</span><span class="chip">Grafana</span></div></div>
+            <!-- Migration (all items) -->
+            <div class="skill-tile"><h3><i class="fas fa-truck"></i> migration</h3><div class="skill-cloud"><span class="chip">Drive Migration</span><span class="chip">Mail Migration</span><span class="chip">VM Migration</span><span class="chip">Website Migration</span><span class="chip">Database Migration</span></div></div>
+            <!-- Web & Development + IT Ops -->
+            <div class="skill-tile"><h3><i class="fas fa-code"></i> web & IT ops</h3><div class="skill-cloud"><span class="chip">Web Dev Stacks</span><span class="chip">IT Ticketing Systems</span><span class="chip">Control Panels</span><span class="chip">Plesk</span></div></div>
+            <!-- PENTEST: web app (existing) -->
+            <div class="skill-tile"><h3><i class="fas fa-bug"></i> web app pentest</h3><div class="skill-cloud"><span class="chip">XSS</span><span class="chip">SQLi</span><span class="chip">Command Injection</span><span class="chip">File Upload</span><span class="chip">IDOR</span><span class="chip">LFI</span><span class="chip">SSRF</span><span class="chip">GraphQL Inj</span><span class="chip">XXE</span><span class="chip">XPath Inj</span><span class="chip">WAF Bypass</span><span class="chip">Git Exposure</span><span class="chip">Webshells</span><span class="chip">Flask</span></div></div>
+            <!-- PENTEST: privesc & network (existing) -->
+            <div class="skill-tile"><h3><i class="fas fa-skull"></i> privesc & network pentest</h3><div class="skill-cloud"><span class="chip">Windows PrivEsc</span><span class="chip">Linux PrivEsc</span><span class="chip">Exploit Suggester</span><span class="chip">Linux Exploit Dev</span><span class="chip">Enumeration</span><span class="chip">Brute Force</span><span class="chip">Post Exploit</span><span class="chip">Firewall Pentest</span></div></div>
+            <!-- AD & red team (existing) -->
             <div class="skill-tile"><h3><i class="fas fa-dungeon"></i> AD & red team</h3><div class="skill-cloud"><span class="chip">AD Pentesting</span><span class="chip">AD Post-Exploit</span><span class="chip">C2 (Havoc/Sliver/Mythic/Villain)</span><span class="chip">C2 Redirector</span><span class="chip">Initial Access</span><span class="chip">Evasion</span><span class="chip">Frameworks</span></div></div>
-            <!-- CONTAINER / CLOUD PENTEST -->
+            <!-- Container & cloud pentest (existing) -->
             <div class="skill-tile"><h3><i class="fas fa-dharmachakra"></i> container & cloud pentest</h3><div class="skill-cloud"><span class="chip">Docker Pentest</span><span class="chip">K8s Pentest</span><span class="chip">Container Escape</span><span class="chip">Docker CVEs</span><span class="chip">Cloud Pentest</span><span class="chip">C2 in Cloud</span></div></div>
-            <!-- IOT / EMBEDDED / SPECIAL -->
+            <!-- IoT & embedded (existing) -->
             <div class="skill-tile"><h3><i class="fas fa-microchip"></i> iot & embedded</h3><div class="skill-cloud"><span class="chip">IoT Enum</span><span class="chip">Dissect Devices</span><span class="chip">Firmware Analysis</span><span class="chip">Emulation</span><span class="chip">Drone Pentest</span><span class="chip">Automotive</span><span class="chip">Virtual CAN</span><span class="chip">Vending Machines</span></div></div>
-            <!-- CISCO / SMART CITY -->
+            <!-- Cisco / smart city (existing) -->
             <div class="skill-tile"><h3><i class="fas fa-city"></i> infra special</h3><div class="skill-cloud"><span class="chip">Cisco Attacks</span><span class="chip">Cisco-Torch</span><span class="chip">Password Attack Type5</span><span class="chip">Smart City Pentest</span><span class="chip">Protocol Exploitation</span></div></div>
-            <!-- REVERSING & MALWARE -->
+            <!-- Reversing & malware (existing) -->
             <div class="skill-tile"><h3><i class="fas fa-recycle"></i> reversing & malware</h3><div class="skill-cloud"><span class="chip">Reverse Engineering</span><span class="chip">Ghidra</span><span class="chip">Malware Analysis</span><span class="chip">Dynamic Analysis</span><span class="chip">Exploit Dev Tools</span></div></div>
-            <!-- WEB3 / SMART CONTRACTS -->
+            <!-- Web3 & appsec (existing) -->
             <div class="skill-tile"><h3><i class="fas fa-link"></i> web3 & appsec</h3><div class="skill-cloud"><span class="chip">Web3 Vulns</span><span class="chip">Smart Contract Audit</span><span class="chip">API Testing</span><span class="chip">OWASP Top10</span><span class="chip">Authentication Bypass</span></div></div>
-            <!-- DFIR / GRC / THREAT HUNTING -->
+            <!-- DFIR / GRC / threat hunting (existing) -->
             <div class="skill-tile"><h3><i class="fas fa-shield-halved"></i> dfir & GRC</h3><div class="skill-cloud"><span class="chip">Digital Forensics</span><span class="chip">Incident Response</span><span class="chip">CISA Playbook</span><span class="chip">Threat Hunting</span><span class="chip">GRC Frameworks</span><span class="chip">APT Research</span></div></div>
-            <!-- TOOLS / MINDMAPS / MISC -->
-            <div class="skill-tile"><h3><i class="fas fa-map"></i> methodology</h3><div class="skill-cloud"><span class="chip">CEH Mindmaps</span><span class="chip">CND Mindmaps</span><span class="chip">Hacking Cheatsheets</span><span class="chip">PenTesting Book</span><span class="chip">Vulnerability Research</span><span class="chip">CVE Research</span><span class="chip">Tunneling</span></div></div>
+            <!-- Methodology / mindmaps / research (existing) -->
+            <div class="skill-tile"><h3><i class="fas fa-map"></i> methodology & research</h3><div class="skill-cloud"><span class="chip">CEH Mindmaps</span><span class="chip">CND Mindmaps</span><span class="chip">Hacking Cheatsheets</span><span class="chip">PenTesting Book</span><span class="chip">Vulnerability Research</span><span class="chip">CVE Research</span><span class="chip">Tunneling & Exfiltration</span></div></div>
         </div>
 
-        <!-- education (with corrected names: Engineering, University) -->
+        <!-- experience (CloudTechtiq) -->
+        <div class="section-head"><i class="fas fa-briefcase"></i><h2>experience</h2></div>
+        <div class="timeline-card">
+            <div class="card-left">Dec 2024 – Present</div>
+            <div class="card-right">
+                <h3>Windows System Administrator</h3>
+                <div class="meta-line">CloudTechtiq Technologies · Full-time · On-site (Jaipur)</div>
+                <div class="desc">1 yr 3 mos · Windows system administration, troubleshooting, and infrastructure support.</div>
+                <div class="minichips"><span class="minichip">Windows Server</span><span class="minichip">Active Directory</span><span class="minichip">PowerShell</span></div>
+            </div>
+        </div>
+
+        <!-- education (corrected) -->
         <div class="section-head"><i class="fas fa-graduation-cap"></i><h2>formation</h2></div>
         <div class="timeline-card"><div class="card-left">Jul 2023 – Jul 2025</div><div class="card-right"><h3>JECRC University · MCA Cyber Security</h3><div class="meta-line">Grade 8.49 · Cyber Security club</div><div class="minichips"><span class="minichip">Java</span><span class="minichip">C</span><span class="minichip">C++</span><span class="minichip">Salesforce</span></div></div></div>
         <div class="timeline-card"><div class="card-left">Jun 2020 – Jun 2023</div><div class="card-right"><h3>Girijananda Chowdhury University · BCA Information Technology</h3><div class="meta-line">Grade 8.86 · ML, AWS, JS, MongoDB</div></div></div>
         <div class="timeline-card"><div class="card-left">Feb 2020 – Dec 2022</div><div class="card-right"><h3>NINT · Hardware & Network Engineering</h3><div class="meta-line">Grade A · AD, Network Admin</div></div></div>
 
-        <!-- CERTIFICATIONS - visible + expand more -->
+        <!-- certifications (visible + expand) -->
         <div class="section-head"><i class="fas fa-certificate"></i><h2>credentials</h2></div>
         <div class="certs-mini" id="visibleCerts">
             <div class="cert-item"><i class="fas fa-shield"></i> Proxmox VE 9 (Feb '26)</div>
@@ -643,8 +667,6 @@
             <div class="cert-item"><i class="fas fa-shield"></i> CEH (Master) · EC‑Council</div>
             <div class="cert-item"><i class="fas fa-shield"></i> CND · CEH Practical</div>
         </div>
-
-        <!-- hidden certs (remaining) -->
         <div class="hidden-content" id="hiddenCerts">
             <div class="certs-mini">
                 <div class="cert-item"><i class="fas fa-shield"></i> Acronis Cloud Tech Associate Advanced Backup</div>
@@ -679,8 +701,6 @@
                 <div class="cert-item"><i class="fas fa-shield"></i> OWASP Top 10 (LinkedIn)</div>
             </div>
         </div>
-
-        <!-- expand button -->
         <div style="display: flex; justify-content: center;">
             <div class="expand-btn" id="expandCertsBtn" onclick="toggleCerts()">
                 <i class="fas fa-chevron-down" id="expandIcon"></i>
@@ -688,17 +708,13 @@
             </div>
         </div>
 
-        <!-- projects - visible + expand more -->
+        <!-- projects (visible + expand) -->
         <div class="section-head"><i class="fas fa-code"></i><h2>projects・攻防</h2></div>
-        
-        <!-- visible projects -->
         <div id="visibleProjects">
             <div class="timeline-card"><div class="card-left">Dec 2025 · present</div><div class="card-right"><h3>Windows Server Auditor (PowerShell)</h3><div class="desc">HTML reports, security audit</div><a class="project-link" href="https://github.com/3ls3if/Windows-Server-Audit-Script">github</a><div class="minichips"><span class="minichip">PowerShell</span></div></div></div>
             <div class="timeline-card"><div class="card-left">Sep 2024 · present</div><div class="card-right"><h3>Forensics Credential Harvester</h3><div class="desc">Browser credential recovery (forensics)</div><a class="project-link" href="https://github.com/3ls3if/Forensics-Credential-Harvester">github</a></div></div>
             <div class="timeline-card"><div class="card-left">Jul 2024 · present</div><div class="card-right"><h3>Code Keyword Extractor (ML)</h3><div class="desc">ML + AST keyword classification</div><a class="project-link" href="https://github.com/3ls3if/Code-Keyword-Extraction-Tool--CKET">github</a></div></div>
         </div>
-
-        <!-- hidden projects -->
         <div class="hidden-content" id="hiddenProjects">
             <div class="timeline-card"><div class="card-left">Jun 2024 · present</div><div class="card-right"><h3>Recon Auditor</h3><div class="desc">Python recon & public infra auditing</div><a class="project-link" href="https://github.com/3ls3if/Recon-Auditor">github</a></div></div>
             <div class="timeline-card"><div class="card-left">Jun 2024 · present</div><div class="card-right"><h3>Source Code Analyzer (ML)</h3><div class="desc">ML vulnerability scanner</div><a class="project-link" href="https://github.com/3ls3if/Source-Code-Analyzer">github</a></div></div>
@@ -706,8 +722,6 @@
             <div class="timeline-card"><div class="card-left">Jun 2024</div><div class="card-right"><h3>Web Scraper for Info Gathering</h3><div class="desc">Website data extraction</div><a class="project-link" href="https://github.com/3ls3if/Scrape-2-Rule-Em.git">github</a></div></div>
             <div class="timeline-card"><div class="card-left">Jun 2022 - Nov 2022</div><div class="card-right"><h3>Secure Text Transfer System</h3><div class="desc">Encrypted messaging (AWS, Node.js)</div><a class="project-link" href="https://github.com/3ls3if/Secure-Text-Transfer">github</a></div></div>
         </div>
-
-        <!-- expand button for projects -->
         <div style="display: flex; justify-content: center;">
             <div class="expand-btn" id="expandProjectsBtn" onclick="toggleProjects()">
                 <i class="fas fa-chevron-down" id="expandProjectsIcon"></i>
@@ -715,14 +729,14 @@
             </div>
         </div>
 
-        <!-- langs & publications -->
+        <!-- languages & publications -->
         <div class="info-row">
             <div class="info-block"><h3><i class="fas fa-globe"></i> languages</h3><ul><li>🇬🇧 English · full prof.</li><li>🇮🇳 हिंदी · prof. working</li><li>🇮🇳 অসমীয়া · native</li></ul></div>
             <div class="info-block"><h3><i class="fas fa-feather"></i> publications</h3><p>📘 System Admin Book (Dec 2024)</p><p style="margin-top:0.5rem;">📄 CEH / CND Mindmaps</p></div>
             <div class="info-block"><h3><i class="fas fa-infinity"></i> research</h3><p>APT · Threat Hunting · CISA IR</p></div>
         </div>
 
-        <!-- footer with anime touch -->
+        <!-- footer -->
         <div class="footer">
             <i class="fas fa-dragon"></i> 継続は力なり ·  calm like a Japanese garden <i class="fas fa-dragon"></i><br>
             <span style="opacity:0.5;">dark/light・responsive・無限の技能</span>
@@ -742,10 +756,8 @@
         // expand/collapse for certifications
         function toggleCerts() {
             const hidden = document.getElementById('hiddenCerts');
-            const btn = document.getElementById('expandCertsBtn');
             const icon = document.getElementById('expandIcon');
             const text = document.getElementById('expandText');
-            
             if (hidden.style.display === 'none' || hidden.style.display === '') {
                 hidden.style.display = 'block';
                 icon.style.transform = 'rotate(180deg)';
@@ -760,10 +772,8 @@
         // expand/collapse for projects
         function toggleProjects() {
             const hidden = document.getElementById('hiddenProjects');
-            const btn = document.getElementById('expandProjectsBtn');
             const icon = document.getElementById('expandProjectsIcon');
             const text = document.getElementById('expandProjectsText');
-            
             if (hidden.style.display === 'none' || hidden.style.display === '') {
                 hidden.style.display = 'block';
                 icon.style.transform = 'rotate(180deg)';
