@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Rohan Das · 零 · security generalist</title>
+    <!-- Font Awesome 6 (free) for crisp icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- smooth, modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ----- 🌓 THEME VARIABLES (DEFAULT DARK) ----- */
+        :root {
+            --bg-depth: #0c0e13;
+            --bg-body: #11161c;
+            --surface-1: #1a2129;
+            --surface-2: #232d38;
+            --surface-3: #2c3845;
+            --text-main: #eef4fa;
+            --text-muted: #b3c2d1;
+            --accent-prime: #f0b27a;      /* warm apricot – anime sunset */
+            --accent-second: #b48c9c;      /* muted lavender */
+            --accent-glow: rgba(240, 178, 122, 0.2);
+            --border-soft: #364553;
+            --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.8);
+            --sakura-petal: rgba(244, 172, 150, 0.3);
+            --wave-color: #5f869c;
+        }
+
+        /* ☀️ LIGHT MODE */
+        body.light {
+            --bg-depth: #e7dfd7;
+            --bg-body: #fcf7f2;
+            --surface-1: #ffffff;
+            --surface-2: #f2ebe4;
+            --surface-3: #e8ded5;
+            --text-main: #2a3847;
+            --text-muted: #4e6277;
+            --accent-prime: #bd6748;
+            --accent-second: #9f7e8a;
+            --accent-glow: rgba(189, 103, 72, 0.15);
+            --border-soft: #d8ccc0;
+            --card-shadow: 0 12px 28px -10px rgba(60, 40, 20, 0.2);
+            --sakura-petal: rgba(189, 103, 72, 0.12);
+            --wave-color: #698da0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-weight: 350;
+            transition: background-color 0.35s ease, color 0.25s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 🎋 anime background – floating elements */
+        .anime-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            background: var(--sakura-petal);
+            width: 18px;
+            height: 18px;
+            border-radius: 90% 10% 70% 30% / 30% 80% 20% 70%;
+            transform: rotate(15deg);
+            box-shadow: 0 0 12px var(--accent-glow);
+            animation: fall 24s infinite linear;
+            opacity: 0.5;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-15vh) rotate(0deg) scale(0.9); }
+            100% { transform: translateY(110vh) rotate(300deg) scale(1.5); opacity: 0;}
+        }
+
+        .wave-stripe {
+            position: absolute;
+            width: 300px;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, var(--wave-color), transparent);
+            border-radius: 50%;
+            opacity: 0.18;
+            animation: slide 34s infinite alternate ease-in-out;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(-200px) translateY(0) rotate(1deg); }
+            100% { transform: translateX(110vw) translateY(50px) rotate(-2deg); }
+        }
+
+        .dot-haze {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-second);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: floatDot 19s infinite alternate;
+        }
+
+        @keyframes floatDot {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, -60px); }
+        }
+
+        /* ----- main container (mobile first) ----- */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.2rem 1.2rem 2.5rem;
+            position: relative;
+            z-index: 4;
+        }
+
+        /* 🎛️ theme toggle + top row */
+        .top-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1.8rem;
+        }
+
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border-soft);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: 0.2s;
+        }
+
+        .theme-btn i {
+            color: var(--accent-prime);
+            font-size: 1.2rem;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent-prime);
+            color: var(--text-main);
+        }
+
+        /* 👤 profile card — floating, soft */
+        .profile-card {
+            background: var(--surface-1);
+            border-radius: 3rem 3rem 3rem 3rem;
+            padding: 2rem 1.8rem;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--card-shadow);
+            margin-bottom: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            position: relative;
+            backdrop-filter: blur(2px);
+        }
+
+        .profile-card::after {
+            content: "⚙️🌊";
+            position: absolute;
+            bottom: 12px;
+            right: 24px;
+            font-size: 2.2rem;
+            opacity: 0.1;
+            transform: rotate(8deg);
+            white-space: nowrap;
+        }
+
+        /* profile picture - actual image */
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 52% 48% 38% 62% / 44% 56% 44% 56%;
+            object-fit: cover;
+            object-position: center;
+            border: 5px solid var(--surface-2);
+            box-shadow: 0 14px 24px -12px black;
+            animation: morph 9s infinite alternate;
+            flex-shrink: 0;
+            background: var(--surface-3); /* fallback */
+        }
+
+        @keyframes morph {
+            0% { border-radius: 52% 48% 38% 62% / 44% 56% 44% 56%; }
+            100% { border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%; }
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .profile-info h1 {
+            font-size: 2.4rem;
+            font-weight: 450;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            margin-bottom: 0.3rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .handle {
+            font-size: 1.3rem;
+            color: var(--accent-prime);
+            background: var(--surface-3);
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            border: 1px solid var(--border-soft);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            border-left: 5px solid var(--accent-prime);
+            padding-left: 1rem;
+            margin: 0.6rem 0 1rem 0;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem 2rem;
+        }
+
+        .contact-row a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            border-bottom: 1px dotted transparent;
+            transition: 0.2s;
+        }
+
+        .contact-row a i {
+            color: var(--accent-prime);
+            width: 1.4rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-row a:hover {
+            color: var(--text-main);
+            border-bottom-color: var(--accent-prime);
+        }
+
+        /* 🧩 section headers */
+        .section-head {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 3rem 0 1.5rem;
+        }
+
+        .section-head i {
+            font-size: 2rem;
+            color: var(--accent-prime);
+            background: var(--surface-2);
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 3.2rem;
+            height: 3.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-head h2 {
+            font-size: 2rem;
+            font-weight: 380;
+            letter-spacing: 1px;
+            border-bottom: 2px dashed var(--border-soft);
+            padding-bottom: 0.3rem;
+        }
+
+        /* SKILLS – beautiful responsive grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .skill-tile {
+            background: var(--surface-1);
+            border: 1px solid var(--border-soft);
+            border-radius: 2rem;
+            padding: 1.6rem 1.3rem;
+            box-shadow: 0 8px 20px -10px rgba(0,0,0,0.5);
+            transition: 0.2s;
+            backdrop-filter: blur(2px);
+        }
+
+        .skill-tile:hover {
+            border-color: var(--accent-prime);
+            transform: translateY(-5px);
+        }
+
+        .skill-tile h3 {
+            font-size: 1.3rem;
+            font-weight: 460;
+            margin-bottom: 1.2rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            color: var(--accent-second);
+            border-bottom: 1px dashed var(--border-soft);
+            padding-bottom: 0.5rem;
+        }
+
+        .skill-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.6rem;
+        }
+
+        .chip {
+            background: var(--surface-3);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border-soft);
+            transition: 0.1s;
+            white-space: nowrap;
+        }
+
+        /* 📄 timeline cards (education, projects) */
+        .timeline-card {
+            background: var(--surface-1);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-soft);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 1.8rem;
+            box-shadow: var(--card-shadow);
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .timeline-card:hover {
+            border-color: var(--accent-prime);
+        }
+
+        .card-left {
+            min-width: 150px;
+            font-weight: 430;
+            color: var(--accent-prime);
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+        }
+
+        .card-right {
+            flex: 1;
+        }
+
+        .card-right h3 {
+            font-size: 1.4rem;
+            font-weight: 450;
+            margin-bottom: 0.2rem;
+        }
+
+        .meta-line {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .desc {
+            color: var(--text-muted);
+            margin: 0.7rem 0;
+        }
+
+        .minichips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.8rem 0 0.2rem;
+        }
+
+        .minichip {
+            background: var(--surface-2);
+            border-radius: 30px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            border: 1px solid var(--border-soft);
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 0.7rem;
+            margin-right: 1.8rem;
+            color: var(--accent-prime);
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-bottom: 1px dashed;
+        }
+
+        /* certification grid – compact */
+        .certs-mini {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.9rem;
+        }
+
+        .cert-item {
+            background: var(--surface-2);
+            border-radius: 1.8rem;
+            padding: 1rem 1.3rem;
+            border: 1px solid var(--border-soft);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .cert-item i {
+            color: var(--accent-prime);
+            font-size: 1.2rem;
+        }
+
+        /* expandable sections */
+        .hidden-content {
+            display: none;
+            margin-top: 1.5rem;
+        }
+
+        .expand-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border-soft);
+            color: var(--text-main);
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 1rem 0 2rem;
+            transition: 0.2s;
+        }
+
+        .expand-btn i {
+            color: var(--accent-prime);
+            transition: transform 0.3s;
+        }
+
+        .expand-btn:hover {
+            border-color: var(--accent-prime);
+            background: var(--surface-3);
+        }
+
+        .expand-btn.active i {
+            transform: rotate(180deg);
+        }
+
+        /* language & publication row */
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+            background: var(--surface-1);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            border: 1px solid var(--border-soft);
+        }
+
+        .info-block {
+            flex: 1 1 200px;
+        }
+
+        .info-block h3 {
+            font-weight: 450;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-second);
+        }
+
+        .info-block ul {
+            list-style: none;
+        }
+
+        .info-block li {
+            margin-bottom: 0.3rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2.5rem 0 0.5rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-soft);
+            margin-top: 3.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* mobile fine-tuning */
+        @media (max-width: 600px) {
+            .profile-info h1 {
+                font-size: 2rem;
+            }
+            .handle {
+                font-size: 1rem;
+            }
+            .section-head h2 {
+                font-size: 1.6rem;
+            }
+            .skill-tile {
+                padding: 1.2rem;
+            }
+            .chip {
+                white-space: normal;
+            }
+            .profile-pic {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- anime moving background (petals, waves) -->
+    <div class="anime-canvas">
+        <div class="petal" style="left: 4%; top: -10%; animation-duration: 20s;"></div>
+        <div class="petal" style="left: 25%; animation-duration: 27s; animation-delay: 2s;"></div>
+        <div class="petal" style="left: 50%; animation-duration: 18s; animation-delay: 5s;"></div>
+        <div class="petal" style="left: 75%; animation-duration: 24s;"></div>
+        <div class="petal" style="left: 90%; animation-duration: 22s; animation-delay: 1s;"></div>
+        <div class="wave-stripe" style="top: 15%;"></div>
+        <div class="wave-stripe" style="top: 50%; width: 450px;"></div>
+        <div class="wave-stripe" style="top: 80%;"></div>
+        <div class="dot-haze" style="top: 30%; left: 10%;"></div>
+        <div class="dot-haze" style="top: 70%; left: 80%;"></div>
+    </div>
+
+    <div class="container">
+        <!-- theme toggle -->
+        <div class="top-actions">
+            <div class="theme-btn" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span>闇 / 光</span>
+                <i class="fas fa-sun"></i>
+            </div>
+        </div>
+
+        <!-- profile card with actual profile picture -->
+        <div class="profile-card">
+            <img src="profile.png" alt="Rohan Das profile picture" class="profile-pic" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Crect%20width%3D%22120%22%20height%3D%22120%22%20fill%3D%22%23364553%22%2F%3E%3Ctext%20x%3D%2260%22%20y%3D%2270%22%20font-size%3D%2236%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f0b27a%22%20font-family%3D%22Inter%22%3ERD%3C%2Ftext%3E%3C%2Fsvg%3E');">
+            <div class="profile-info">
+                <h1>Rohan Das <span class="handle">3ls3if</span></h1>
+                <div class="tagline">system architect / security generalist · アニメ好き</div>
+                <div class="contact-row">
+                    <a href="https://www.linkedin.com/in/iamrohandas/"><i class="fab fa-linkedin"></i> iamrohandas</a>
+                    <a href="mailto:rohan0x80@gmail.com"><i class="fas fa-envelope"></i> rohan0x80</a>
+                    <a href="https://github.com/3ls3if"><i class="fab fa-github"></i> 3ls3if</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- main skills (original bucket) + new "More Skills" merged into beautiful tiles -->
+        <div class="section-head">
+            <i class="fas fa-cog"></i>
+            <h2>capabilities</h2>
+        </div>
+
+        <!-- huge skill set grouped thematically (merged both old + new from your list) -->
+        <div class="skills-grid">
+            <!-- INFRA & HARDWARE -->
+            <div class="skill-tile"><h3><i class="fas fa-server"></i> infra & hardware</h3><div class="skill-cloud"><span class="chip">Physical Machines</span><span class="chip">RAID</span><span class="chip">Data Center</span><span class="chip">HPE iLO</span><span class="chip">Physical Networking</span><span class="chip">Router Setup</span></div></div>
+            <!-- OS + SYSTEM ADMIN -->
+            <div class="skill-tile"><h3><i class="fab fa-windows"></i> OS & sysadmin</h3><div class="skill-cloud"><span class="chip">Windows Server</span><span class="chip">Mac</span><span class="chip">Group Policy</span><span class="chip">Active Directory</span><span class="chip">PowerShell</span><span class="chip">Event Viewer</span><span class="chip">Task Scheduler</span><span class="chip">Auditing</span></div></div>
+            <!-- VIRT / CLOUD -->
+            <div class="skill-tile"><h3><i class="fas fa-cloud"></i> virt & cloud</h3><div class="skill-cloud"><span class="chip">Virtualization</span><span class="chip">Containers</span><span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Docker Escape</span></div></div>
+            <!-- NETWORKING & FIREWALLS -->
+            <div class="skill-tile"><h3><i class="fas fa-network-wired"></i> networking</h3><div class="skill-cloud"><span class="chip">VPN</span><span class="chip">Proxy</span><span class="chip">CDN</span><span class="chip">Sophos FW</span><span class="chip">FortiGate</span><span class="chip">Cisco</span><span class="chip">Port Forwarding</span><span class="chip">Protocols</span></div></div>
+            <!-- PENTEST 1 (web) -->
+            <div class="skill-tile"><h3><i class="fas fa-bug"></i> web app pentest</h3><div class="skill-cloud"><span class="chip">XSS</span><span class="chip">SQLi</span><span class="chip">Command Inj</span><span class="chip">File Upload</span><span class="chip">IDOR</span><span class="chip">LFI</span><span class="chip">SSRF</span><span class="chip">GraphQL Inj</span><span class="chip">XXE</span><span class="chip">XPath Inj</span><span class="chip">WAF Bypass</span><span class="chip">Git Exposure</span><span class="chip">Webshells</span><span class="chip">Flask</span></div></div>
+            <!-- PENTEST 2 (network & privesc) -->
+            <div class="skill-tile"><h3><i class="fas fa-skull"></i> privesc & network</h3><div class="skill-cloud"><span class="chip">Windows PrivEsc</span><span class="chip">Linux PrivEsc</span><span class="chip">Exploit Suggester</span><span class="chip">Linux Exploit Dev</span><span class="chip">Enumeration</span><span class="chip">Brute Force</span><span class="chip">Post Exploit</span><span class="chip">Firewall Pentest</span></div></div>
+            <!-- ACTIVE DIRECTORY / REDTEAM -->
+            <div class="skill-tile"><h3><i class="fas fa-dungeon"></i> AD & red team</h3><div class="skill-cloud"><span class="chip">AD Pentesting</span><span class="chip">AD Post-Exploit</span><span class="chip">C2 (Havoc/Sliver/Mythic/Villain)</span><span class="chip">C2 Redirector</span><span class="chip">Initial Access</span><span class="chip">Evasion</span><span class="chip">Frameworks</span></div></div>
+            <!-- CONTAINER / CLOUD PENTEST -->
+            <div class="skill-tile"><h3><i class="fas fa-dharmachakra"></i> container & cloud pentest</h3><div class="skill-cloud"><span class="chip">Docker Pentest</span><span class="chip">K8s Pentest</span><span class="chip">Container Escape</span><span class="chip">Docker CVEs</span><span class="chip">Cloud Pentest</span><span class="chip">C2 in Cloud</span></div></div>
+            <!-- IOT / EMBEDDED / SPECIAL -->
+            <div class="skill-tile"><h3><i class="fas fa-microchip"></i> iot & embedded</h3><div class="skill-cloud"><span class="chip">IoT Enum</span><span class="chip">Dissect Devices</span><span class="chip">Firmware Analysis</span><span class="chip">Emulation</span><span class="chip">Drone Pentest</span><span class="chip">Automotive</span><span class="chip">Virtual CAN</span><span class="chip">Vending Machines</span></div></div>
+            <!-- CISCO / SMART CITY -->
+            <div class="skill-tile"><h3><i class="fas fa-city"></i> infra special</h3><div class="skill-cloud"><span class="chip">Cisco Attacks</span><span class="chip">Cisco-Torch</span><span class="chip">Password Attack Type5</span><span class="chip">Smart City Pentest</span><span class="chip">Protocol Exploitation</span></div></div>
+            <!-- REVERSING & MALWARE -->
+            <div class="skill-tile"><h3><i class="fas fa-recycle"></i> reversing & malware</h3><div class="skill-cloud"><span class="chip">Reverse Engineering</span><span class="chip">Ghidra</span><span class="chip">Malware Analysis</span><span class="chip">Dynamic Analysis</span><span class="chip">Exploit Dev Tools</span></div></div>
+            <!-- WEB3 / SMART CONTRACTS -->
+            <div class="skill-tile"><h3><i class="fas fa-link"></i> web3 & appsec</h3><div class="skill-cloud"><span class="chip">Web3 Vulns</span><span class="chip">Smart Contract Audit</span><span class="chip">API Testing</span><span class="chip">OWASP Top10</span><span class="chip">Authentication Bypass</span></div></div>
+            <!-- DFIR / GRC / THREAT HUNTING -->
+            <div class="skill-tile"><h3><i class="fas fa-shield-halved"></i> dfir & GRC</h3><div class="skill-cloud"><span class="chip">Digital Forensics</span><span class="chip">Incident Response</span><span class="chip">CISA Playbook</span><span class="chip">Threat Hunting</span><span class="chip">GRC Frameworks</span><span class="chip">APT Research</span></div></div>
+            <!-- TOOLS / MINDMAPS / MISC -->
+            <div class="skill-tile"><h3><i class="fas fa-map"></i> methodology</h3><div class="skill-cloud"><span class="chip">CEH Mindmaps</span><span class="chip">CND Mindmaps</span><span class="chip">Hacking Cheatsheets</span><span class="chip">PenTesting Book</span><span class="chip">Vulnerability Research</span><span class="chip">CVE Research</span><span class="chip">Tunneling</span></div></div>
+        </div>
+
+        <!-- education (with corrected names: Engineering, University) -->
+        <div class="section-head"><i class="fas fa-graduation-cap"></i><h2>formation</h2></div>
+        <div class="timeline-card"><div class="card-left">Jul 2023 – Jul 2025</div><div class="card-right"><h3>JECRC University · MCA Cyber Security</h3><div class="meta-line">Grade 8.49 · Cyber Security club</div><div class="minichips"><span class="minichip">Java</span><span class="minichip">C</span><span class="minichip">C++</span><span class="minichip">Salesforce</span></div></div></div>
+        <div class="timeline-card"><div class="card-left">Jun 2020 – Jun 2023</div><div class="card-right"><h3>Girijananda Chowdhury University · BCA Information Technology</h3><div class="meta-line">Grade 8.86 · ML, AWS, JS, MongoDB</div></div></div>
+        <div class="timeline-card"><div class="card-left">Feb 2020 – Dec 2022</div><div class="card-right"><h3>NINT · Hardware & Network Engineering</h3><div class="meta-line">Grade A · AD, Network Admin</div></div></div>
+
+        <!-- CERTIFICATIONS - visible + expand more -->
+        <div class="section-head"><i class="fas fa-certificate"></i><h2>credentials</h2></div>
+        <div class="certs-mini" id="visibleCerts">
+            <div class="cert-item"><i class="fas fa-shield"></i> Proxmox VE 9 (Feb '26)</div>
+            <div class="cert-item"><i class="fas fa-shield"></i> MS‑102 M365 Expert (Sep '25)</div>
+            <div class="cert-item"><i class="fas fa-shield"></i> Plesk Obsidian Pro</div>
+            <div class="cert-item"><i class="fas fa-shield"></i> Acronis Advanced Security</div>
+            <div class="cert-item"><i class="fas fa-shield"></i> CEH (Master) · EC‑Council</div>
+            <div class="cert-item"><i class="fas fa-shield"></i> CND · CEH Practical</div>
+        </div>
+
+        <!-- hidden certs (remaining) -->
+        <div class="hidden-content" id="hiddenCerts">
+            <div class="certs-mini">
+                <div class="cert-item"><i class="fas fa-shield"></i> Acronis Cloud Tech Associate Advanced Backup</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Troubleshooting Network Connectivity (LinkedIn)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Automation with Python & PowerShell (LinkedIn)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Google Workspace Admin (LinkedIn)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> CEH (Practical) EC‑Council</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Cybersecurity Foundations GRC (LinkedIn)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Advanced Malware Analysis Redux</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Cisco Networking Foundations (Switching/Routing)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Advanced Cyber Threat Intelligence</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Pen Testing Web Apps with Kali & Burp</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Ethical Hacking with JavaScript</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Smart Contract Security (LinkedIn)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Dynamic Application Security Testing</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Modern Threat Hunting Strategies</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Advanced Threat Hunting on AD</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Threat Hunting: Network Data</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> AIG Shields Up (Forage)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Telstra Cyber Job Sim</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Tata Group Cyber Analyst</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Building Ubuntu Server (LinkedIn)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Complete Ethical Hacking Bootcamp (ZTM)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Advanced Pen Testing AD</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Privileged Access Management</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Stealth Pen Testing</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Android App Security (LinkedIn)</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Pen Testing with Metasploit</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Intro to MITRE ATT&CK</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> SIEM with Splunk</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> Wireshark Malware Forensics</div>
+                <div class="cert-item"><i class="fas fa-shield"></i> OWASP Top 10 (LinkedIn)</div>
+            </div>
+        </div>
+
+        <!-- expand button -->
+        <div style="display: flex; justify-content: center;">
+            <div class="expand-btn" id="expandCertsBtn" onclick="toggleCerts()">
+                <i class="fas fa-chevron-down" id="expandIcon"></i>
+                <span id="expandText">show more credentials</span>
+            </div>
+        </div>
+
+        <!-- projects - visible + expand more -->
+        <div class="section-head"><i class="fas fa-code"></i><h2>projects・攻防</h2></div>
+        
+        <!-- visible projects -->
+        <div id="visibleProjects">
+            <div class="timeline-card"><div class="card-left">Dec 2025 · present</div><div class="card-right"><h3>Windows Server Auditor (PowerShell)</h3><div class="desc">HTML reports, security audit</div><a class="project-link" href="https://github.com/3ls3if/Windows-Server-Audit-Script">github</a><div class="minichips"><span class="minichip">PowerShell</span></div></div></div>
+            <div class="timeline-card"><div class="card-left">Sep 2024 · present</div><div class="card-right"><h3>Forensics Credential Harvester</h3><div class="desc">Browser credential recovery (forensics)</div><a class="project-link" href="https://github.com/3ls3if/Forensics-Credential-Harvester">github</a></div></div>
+            <div class="timeline-card"><div class="card-left">Jul 2024 · present</div><div class="card-right"><h3>Code Keyword Extractor (ML)</h3><div class="desc">ML + AST keyword classification</div><a class="project-link" href="https://github.com/3ls3if/Code-Keyword-Extraction-Tool--CKET">github</a></div></div>
+        </div>
+
+        <!-- hidden projects -->
+        <div class="hidden-content" id="hiddenProjects">
+            <div class="timeline-card"><div class="card-left">Jun 2024 · present</div><div class="card-right"><h3>Recon Auditor</h3><div class="desc">Python recon & public infra auditing</div><a class="project-link" href="https://github.com/3ls3if/Recon-Auditor">github</a></div></div>
+            <div class="timeline-card"><div class="card-left">Jun 2024 · present</div><div class="card-right"><h3>Source Code Analyzer (ML)</h3><div class="desc">ML vulnerability scanner</div><a class="project-link" href="https://github.com/3ls3if/Source-Code-Analyzer">github</a></div></div>
+            <div class="timeline-card"><div class="card-left">Jan 2025 - Jun 2025</div><div class="card-right"><h3>Backup Manager (Java)</h3><div class="desc">Cloud backup with OAuth (GDrive/OneDrive)</div></div></div>
+            <div class="timeline-card"><div class="card-left">Jun 2024</div><div class="card-right"><h3>Web Scraper for Info Gathering</h3><div class="desc">Website data extraction</div><a class="project-link" href="https://github.com/3ls3if/Scrape-2-Rule-Em.git">github</a></div></div>
+            <div class="timeline-card"><div class="card-left">Jun 2022 - Nov 2022</div><div class="card-right"><h3>Secure Text Transfer System</h3><div class="desc">Encrypted messaging (AWS, Node.js)</div><a class="project-link" href="https://github.com/3ls3if/Secure-Text-Transfer">github</a></div></div>
+        </div>
+
+        <!-- expand button for projects -->
+        <div style="display: flex; justify-content: center;">
+            <div class="expand-btn" id="expandProjectsBtn" onclick="toggleProjects()">
+                <i class="fas fa-chevron-down" id="expandProjectsIcon"></i>
+                <span id="expandProjectsText">show more projects</span>
+            </div>
+        </div>
+
+        <!-- langs & publications -->
+        <div class="info-row">
+            <div class="info-block"><h3><i class="fas fa-globe"></i> languages</h3><ul><li>🇬🇧 English · full prof.</li><li>🇮🇳 हिंदी · prof. working</li><li>🇮🇳 অসমীয়া · native</li></ul></div>
+            <div class="info-block"><h3><i class="fas fa-feather"></i> publications</h3><p>📘 System Admin Book (Dec 2024)</p><p style="margin-top:0.5rem;">📄 CEH / CND Mindmaps</p></div>
+            <div class="info-block"><h3><i class="fas fa-infinity"></i> research</h3><p>APT · Threat Hunting · CISA IR</p></div>
+        </div>
+
+        <!-- footer with anime touch -->
+        <div class="footer">
+            <i class="fas fa-dragon"></i> 継続は力なり ·  calm like a Japanese garden <i class="fas fa-dragon"></i><br>
+            <span style="opacity:0.5;">dark/light・responsive・無限の技能</span>
+        </div>
+    </div>
+
+    <script>
+        // theme toggle
+        const toggle = document.getElementById('themeToggle');
+        const body = document.body;
+        if (localStorage.getItem('animeTheme') === 'light') body.classList.add('light');
+        toggle.addEventListener('click', ()=>{
+            body.classList.toggle('light');
+            localStorage.setItem('animeTheme', body.classList.contains('light') ? 'light' : 'dark');
+        });
+
+        // expand/collapse for certifications
+        function toggleCerts() {
+            const hidden = document.getElementById('hiddenCerts');
+            const btn = document.getElementById('expandCertsBtn');
+            const icon = document.getElementById('expandIcon');
+            const text = document.getElementById('expandText');
+            
+            if (hidden.style.display === 'none' || hidden.style.display === '') {
+                hidden.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                text.innerText = 'show less credentials';
+            } else {
+                hidden.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+                text.innerText = 'show more credentials';
+            }
+        }
+
+        // expand/collapse for projects
+        function toggleProjects() {
+            const hidden = document.getElementById('hiddenProjects');
+            const btn = document.getElementById('expandProjectsBtn');
+            const icon = document.getElementById('expandProjectsIcon');
+            const text = document.getElementById('expandProjectsText');
+            
+            if (hidden.style.display === 'none' || hidden.style.display === '') {
+                hidden.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                text.innerText = 'show less projects';
+            } else {
+                hidden.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+                text.innerText = 'show more projects';
+            }
+        }
+
+        // initialize hidden sections
+        document.getElementById('hiddenCerts').style.display = 'none';
+        document.getElementById('hiddenProjects').style.display = 'none';
+    </script>
+</body>
+</html>
