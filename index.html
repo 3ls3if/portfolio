@@ -2,792 +2,1170 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Rohan Das · 零</title>
-    <!-- Font Awesome 6 (free) for crisp icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- smooth, modern font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07111f">
+    <meta name="description" content="Rohan Das — Microsoft 365 Administrator, Windows Infrastructure Engineer, Security & Automation Engineer.">
+    <title>Rohan Das | Windows Infrastructure & Security Engineering</title>
+
+    <!-- Microsoft-inspired icons / clean typography -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* ----- 🌓 THEME VARIABLES (DEFAULT DARK) ----- */
         :root {
-            --bg-depth: #0c0e13;
-            --bg-body: #11161c;
-            --surface-1: #1a2129;
-            --surface-2: #232d38;
-            --surface-3: #2c3845;
-            --text-main: #eef4fa;
-            --text-muted: #b3c2d1;
-            --accent-prime: #f0b27a;      /* warm apricot – anime sunset */
-            --accent-second: #b48c9c;      /* muted lavender */
-            --accent-glow: rgba(240, 178, 122, 0.2);
-            --border-soft: #364553;
-            --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.8);
-            --sakura-petal: rgba(244, 172, 150, 0.3);
-            --wave-color: #5f869c;
+            --bg: #06101c;
+            --bg-soft: #0a1624;
+            --panel: rgba(13, 27, 43, 0.82);
+            --panel-2: rgba(19, 38, 59, 0.88);
+            --text: #eef7ff;
+            --muted: #9db2c8;
+            --line: rgba(128, 170, 207, 0.18);
+            --accent: #35a7ff;
+            --accent-2: #00c6ff;
+            --success: #55d98c;
+            --warning: #ffcc66;
+            --danger: #ff6b7a;
+            --glow: rgba(53, 167, 255, 0.22);
+            --shadow: 0 24px 60px rgba(0,0,0,.35);
+            --radius: 18px;
         }
 
-        /* ☀️ LIGHT MODE */
-        body.light {
-            --bg-depth: #e7dfd7;
-            --bg-body: #fcf7f2;
-            --surface-1: #ffffff;
-            --surface-2: #f2ebe4;
-            --surface-3: #e8ded5;
-            --text-main: #2a3847;
-            --text-muted: #4e6277;
-            --accent-prime: #bd6748;
-            --accent-second: #9f7e8a;
-            --accent-glow: rgba(189, 103, 72, 0.15);
-            --border-soft: #d8ccc0;
-            --card-shadow: 0 12px 28px -10px rgba(60, 40, 20, 0.2);
-            --sakura-petal: rgba(189, 103, 72, 0.12);
-            --wave-color: #698da0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-            font-weight: 350;
-            transition: background-color 0.35s ease, color 0.25s ease;
-            position: relative;
+            font-family: "Inter", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 15%, rgba(0, 198, 255, .09), transparent 28%),
+                radial-gradient(circle at 85% 12%, rgba(53, 167, 255, .10), transparent 25%),
+                radial-gradient(circle at 50% 100%, rgba(48, 127, 255, .07), transparent 30%),
+                var(--bg);
+            line-height: 1.65;
             overflow-x: hidden;
         }
 
-        /* 🎋 anime background – floating elements */
-        .anime-canvas {
+        body::before {
+            content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -5;
+            inset: 0;
             pointer-events: none;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(to bottom, black, transparent 88%);
+        }
+
+        a { color: inherit; }
+        img { max-width: 100%; }
+
+        .shell {
+            width: min(1240px, calc(100% - 36px));
+            margin: 0 auto;
+        }
+
+        /* ---------------- HERO ---------------- */
+
+        .hero {
+            min-height: 92vh;
+            display: grid;
+            place-items: center;
+            padding: 42px 0 70px;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 560px;
+            height: 560px;
+            border-radius: 50%;
+            border: 1px solid rgba(53,167,255,.10);
+            box-shadow:
+                0 0 0 40px rgba(53,167,255,.025),
+                0 0 0 80px rgba(53,167,255,.018);
+            top: 7%;
+            right: -140px;
+            z-index: -1;
+        }
+
+        .topbar {
+            position: absolute;
+            top: 18px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: "JetBrains Mono", monospace;
+            color: var(--muted);
+            font-size: .78rem;
+            letter-spacing: .02em;
+        }
+
+        .topbar .brand {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .window-mark {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            box-shadow: 14px 0 var(--accent-2), 0 14px #84d3ff, 14px 14px #b5e6ff;
+            transform: scale(.65);
+            transform-origin: left top;
+            margin-right: 5px;
+        }
+
+        .topbar .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 14px rgba(85,217,140,.5);
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1.45fr .85fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            color: #8dccff;
+            font-size: .85rem;
+            text-transform: uppercase;
+            letter-spacing: .22em;
+            margin-bottom: 14px;
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 6.7rem);
+            line-height: .94;
+            letter-spacing: -.055em;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(238,247,255,.28);
+        }
+
+        .hero-subtitle {
+            max-width: 760px;
+            color: var(--muted);
+            font-size: clamp(1.05rem, 2vw, 1.28rem);
+            margin-bottom: 26px;
+        }
+
+        .terminal-line {
+            font-family: "JetBrains Mono", monospace;
+            font-size: .92rem;
+            color: #b7dfff;
+            margin-bottom: 28px;
+        }
+
+        .terminal-line .prompt {
+            color: var(--accent);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            padding: 11px 17px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,.035);
+            transition: .2s ease;
+            font-weight: 600;
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, #198ce4, #00aeea);
+            color: #03111d;
+            border-color: transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(53,167,255,.65);
+            box-shadow: 0 12px 24px rgba(0,0,0,.18);
+        }
+
+        .hero-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 700px;
+        }
+
+        .metric {
+            padding: 15px;
+            border: 1px solid var(--line);
+            background: rgba(10, 22, 36, .7);
+            border-radius: 13px;
+            backdrop-filter: blur(8px);
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .metric span {
+            color: var(--muted);
+            font-size: .78rem;
+        }
+
+        .profile-panel {
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(20,39,58,.88), rgba(10,23,37,.92));
+            border-radius: 28px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            position: relative;
             overflow: hidden;
         }
 
-        .petal {
+        .profile-panel::before {
+            content: "";
             position: absolute;
-            background: var(--sakura-petal);
-            width: 18px;
-            height: 18px;
-            border-radius: 90% 10% 70% 30% / 30% 80% 20% 70%;
-            transform: rotate(15deg);
-            box-shadow: 0 0 12px var(--accent-glow);
-            animation: fall 24s infinite linear;
-            opacity: 0.5;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(53,167,255,.12), transparent 35%, transparent 70%, rgba(0,198,255,.06));
+            pointer-events: none;
         }
 
-        @keyframes fall {
-            0% { transform: translateY(-15vh) rotate(0deg) scale(0.9); }
-            100% { transform: translateY(110vh) rotate(300deg) scale(1.5); opacity: 0;}
-        }
-
-        .wave-stripe {
-            position: absolute;
-            width: 300px;
-            height: 6px;
-            background: linear-gradient(90deg, transparent, var(--wave-color), transparent);
-            border-radius: 50%;
-            opacity: 0.18;
-            animation: slide 34s infinite alternate ease-in-out;
-        }
-
-        @keyframes slide {
-            0% { transform: translateX(-200px) translateY(0) rotate(1deg); }
-            100% { transform: translateX(110vw) translateY(50px) rotate(-2deg); }
-        }
-
-        .dot-haze {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--accent-second);
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: floatDot 19s infinite alternate;
-        }
-
-        @keyframes floatDot {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(40px, -60px); }
-        }
-
-        /* ----- main container (mobile first) ----- */
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 1.2rem 1.2rem 2.5rem;
-            position: relative;
-            z-index: 4;
-        }
-
-        /* 🎛️ theme toggle + top row */
-        .top-actions {
+        .profile-panel .window-controls {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 1.8rem;
+            gap: 7px;
+            margin-bottom: 20px;
         }
 
-        .theme-btn {
-            background: var(--surface-2);
-            border: 1px solid var(--border-soft);
-            border-radius: 60px;
-            padding: 0.5rem 1.2rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            cursor: pointer;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            transition: 0.2s;
+        .window-controls i {
+            font-size: .66rem;
+            color: #7f95aa;
         }
 
-        .theme-btn i {
-            color: var(--accent-prime);
-            font-size: 1.2rem;
-        }
-
-        .theme-btn:hover {
-            border-color: var(--accent-prime);
-            color: var(--text-main);
-        }
-
-        /* 👤 profile card — floating, soft */
-        .profile-card {
-            background: var(--surface-1);
-            border-radius: 3rem 3rem 3rem 3rem;
-            padding: 2rem 1.8rem;
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--card-shadow);
-            margin-bottom: 3rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 2rem;
-            position: relative;
-            backdrop-filter: blur(2px);
-        }
-
-        .profile-card::after {
-            content: "⚙️🌊";
-            position: absolute;
-            bottom: 12px;
-            right: 24px;
-            font-size: 2.2rem;
-            opacity: 0.1;
-            transform: rotate(8deg);
-            white-space: nowrap;
-        }
-
-        /* profile picture - actual image */
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 52% 48% 38% 62% / 44% 56% 44% 56%;
+        .profile-photo {
+            width: 160px;
+            height: 160px;
             object-fit: cover;
-            object-position: center;
-            border: 5px solid var(--surface-2);
-            box-shadow: 0 14px 24px -12px black;
-            animation: morph 9s infinite alternate;
-            flex-shrink: 0;
-            background: var(--surface-3); /* fallback */
+            border-radius: 22px;
+            border: 1px solid rgba(53,167,255,.35);
+            background: #11263a;
+            display: block;
+            margin-bottom: 20px;
         }
 
-        @keyframes morph {
-            0% { border-radius: 52% 48% 38% 62% / 44% 56% 44% 56%; }
-            100% { border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%; }
+        .profile-panel h2 {
+            font-size: 1.45rem;
+            margin-bottom: 7px;
         }
 
-        .profile-info {
-            flex: 1;
-            min-width: 250px;
+        .profile-panel p {
+            color: var(--muted);
+            font-size: .92rem;
+            margin-bottom: 18px;
         }
 
-        .profile-info h1 {
-            font-size: 2.4rem;
-            font-weight: 450;
-            letter-spacing: 1px;
-            line-height: 1.2;
-            margin-bottom: 0.3rem;
+        .mini-status {
+            display: grid;
+            gap: 9px;
+        }
+
+        .mini-row {
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.6rem;
+            justify-content: space-between;
+            gap: 12px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: .74rem;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+            padding-top: 9px;
         }
 
-        .handle {
-            font-size: 1.3rem;
-            color: var(--accent-prime);
-            background: var(--surface-3);
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
-            border: 1px solid var(--border-soft);
+        .mini-row b {
+            color: var(--success);
+            font-weight: 500;
         }
 
-        .tagline {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            border-left: 5px solid var(--accent-prime);
-            padding-left: 1rem;
-            margin: 0.6rem 0 1rem 0;
+        /* ---------------- GENERAL ---------------- */
+
+        section {
+            padding: 34px 0;
         }
 
-        .contact-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem 2rem;
-        }
-
-        .contact-row a {
-            color: var(--text-muted);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1rem;
-            border-bottom: 1px dotted transparent;
-            transition: 0.2s;
-        }
-
-        .contact-row a i {
-            color: var(--accent-prime);
-            width: 1.4rem;
-            font-size: 1.2rem;
-        }
-
-        .contact-row a:hover {
-            color: var(--text-main);
-            border-bottom-color: var(--accent-prime);
-        }
-
-        /* 🧩 section headers */
         .section-head {
             display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin: 3rem 0 1.5rem;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 18px;
         }
 
-        .section-head i {
-            font-size: 2rem;
-            color: var(--accent-prime);
-            background: var(--surface-2);
-            padding: 0.5rem;
-            border-radius: 50%;
-            width: 3.2rem;
-            height: 3.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .section-title-wrap small {
+            color: var(--accent);
+            font-family: "JetBrains Mono", monospace;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            font-size: .72rem;
         }
 
-        .section-head h2 {
-            font-size: 2rem;
-            font-weight: 380;
-            letter-spacing: 1px;
-            border-bottom: 2px dashed var(--border-soft);
-            padding-bottom: 0.3rem;
+        .section-title-wrap h2 {
+            font-size: clamp(1.7rem, 3vw, 2.35rem);
+            letter-spacing: -.03em;
+            margin-top: 4px;
         }
 
-        /* SKILLS – beautiful responsive grid (unified capabilities with all missing items) */
-        .skills-grid {
+        .section-note {
+            color: var(--muted);
+            max-width: 520px;
+            font-size: .92rem;
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            background: var(--panel);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(9px);
+        }
+
+        /* ---------------- ABOUT / CAPABILITIES ---------------- */
+
+        .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.2rem;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 16px;
         }
 
-        .skill-tile {
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
-            border-radius: 2rem;
-            padding: 1.6rem 1.3rem;
-            box-shadow: 0 8px 20px -10px rgba(0,0,0,0.5);
-            transition: 0.2s;
-            backdrop-filter: blur(2px);
+        .about-card {
+            padding: 24px;
         }
 
-        .skill-tile:hover {
-            border-color: var(--accent-prime);
-            transform: translateY(-5px);
+        .about-card p {
+            color: var(--muted);
+            font-size: .97rem;
         }
 
-        .skill-tile h3 {
-            font-size: 1.3rem;
-            font-weight: 460;
-            margin-bottom: 1.2rem;
+        .terminal {
+            overflow: hidden;
+        }
+
+        .terminal-top {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(0,0,0,.13);
             display: flex;
-            gap: 0.5rem;
+            justify-content: space-between;
             align-items: center;
-            color: var(--accent-second);
-            border-bottom: 1px dashed var(--border-soft);
-            padding-bottom: 0.5rem;
+            font: 500 .72rem "JetBrains Mono", monospace;
+            color: #86a0b7;
         }
 
-        .skill-cloud {
+        .terminal-body {
+            padding: 18px;
+            font: .82rem/1.85 "JetBrains Mono", monospace;
+            color: #c5dcf2;
+        }
+
+        .terminal-body .key { color: #78c8ff; }
+        .terminal-body .value { color: #cfe9fb; }
+        .terminal-body .ok { color: var(--success); }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .skill-card {
+            padding: 18px;
+        }
+
+        .skill-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 1rem;
+            margin-bottom: 11px;
+        }
+
+        .skill-card h3 i {
+            color: var(--accent);
+        }
+
+        .chips {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem 0.6rem;
+            gap: 7px;
         }
 
         .chip {
-            background: var(--surface-3);
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border: 1px solid var(--border-soft);
-            transition: 0.1s;
-            white-space: nowrap;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,.03);
+            border-radius: 999px;
+            padding: 5px 9px;
+            color: #b8cadb;
+            font-size: .74rem;
         }
 
-        /* 📄 timeline cards (education, projects, experience) */
-        .timeline-card {
-            background: var(--surface-1);
-            border-radius: 2rem;
-            padding: 1.8rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border-soft);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem 1.8rem;
-            box-shadow: var(--card-shadow);
-            transition: 0.2s;
-            position: relative;
-        }
+        /* ---------------- PROJECTS ---------------- */
 
-        .timeline-card:hover {
-            border-color: var(--accent-prime);
-        }
-
-        .card-left {
-            min-width: 150px;
-            font-weight: 430;
-            color: var(--accent-prime);
-            font-size: 1rem;
-            letter-spacing: 0.3px;
-        }
-
-        .card-right {
-            flex: 1;
-        }
-
-        .card-right h3 {
-            font-size: 1.4rem;
-            font-weight: 450;
-            margin-bottom: 0.2rem;
-        }
-
-        .meta-line {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 0.7rem;
-        }
-
-        .desc {
-            color: var(--text-muted);
-            margin: 0.7rem 0;
-        }
-
-        .minichips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 0.8rem 0 0.2rem;
-        }
-
-        .minichip {
-            background: var(--surface-2);
-            border-radius: 30px;
-            padding: 0.2rem 0.8rem;
-            font-size: 0.7rem;
-            border: 1px solid var(--border-soft);
-        }
-
-        .project-link {
-            display: inline-block;
-            margin-top: 0.7rem;
-            margin-right: 1.8rem;
-            color: var(--accent-prime);
-            font-size: 0.9rem;
-            text-decoration: none;
-            border-bottom: 1px dashed;
-        }
-
-        /* certification grid – compact */
-        .certs-mini {
+        .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 0.9rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
         }
 
-        .cert-item {
-            background: var(--surface-2);
-            border-radius: 1.8rem;
-            padding: 1rem 1.3rem;
-            border: 1px solid var(--border-soft);
+        .project {
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1px solid rgba(53,167,255,.08);
+            border-radius: 50%;
+            top: -80px;
+            right: -70px;
+        }
+
+        .project-label {
+            font: 500 .7rem "JetBrains Mono", monospace;
+            color: var(--accent);
+            margin-bottom: 9px;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+        }
+
+        .project h3 {
+            font-size: 1.25rem;
+            margin-bottom: 7px;
+        }
+
+        .project p {
+            color: var(--muted);
+            font-size: .9rem;
+            margin-bottom: 13px;
+        }
+
+        .project-links {
             display: flex;
-            align-items: center;
-            gap: 0.6rem;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .cert-item i {
-            color: var(--accent-prime);
+        .project-links a {
+            text-decoration: none;
+            font-size: .78rem;
+            font-weight: 600;
+            color: #a9dfff;
+        }
+
+        /* ---------------- TIMELINE / CREDENTIALS ---------------- */
+
+        .timeline {
+            display: grid;
+            gap: 12px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 170px 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .timeline-date {
+            color: var(--accent);
+            font: 500 .78rem "JetBrains Mono", monospace;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.05rem;
+            margin-bottom: 3px;
+        }
+
+        .timeline-content .meta {
+            color: #7891a6;
+            font-size: .78rem;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: var(--muted);
+            font-size: .88rem;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .cert {
+            padding: 17px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .cert i {
+            color: var(--accent);
+            margin-top: 3px;
+        }
+
+        .cert strong {
+            display: block;
+            font-size: .88rem;
+            margin-bottom: 3px;
+        }
+
+        .cert span {
+            color: var(--muted);
+            font-size: .74rem;
+        }
+
+        /* ---------------- CURRENT FOCUS ---------------- */
+
+        .focus {
+            padding: 22px;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .focus-main h3 {
+            margin-bottom: 9px;
             font-size: 1.2rem;
         }
 
-        /* expandable sections */
-        .hidden-content {
-            display: none;
-            margin-top: 1.5rem;
+        .focus-main p {
+            color: var(--muted);
+            font-size: .9rem;
         }
 
-        .expand-btn {
-            background: var(--surface-2);
-            border: 1px solid var(--border-soft);
-            color: var(--text-main);
-            padding: 0.7rem 2rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin: 1rem 0 2rem;
-            transition: 0.2s;
+        .focus-list {
+            display: grid;
+            gap: 8px;
         }
 
-        .expand-btn i {
-            color: var(--accent-prime);
-            transition: transform 0.3s;
+        .focus-item {
+            border: 1px solid var(--line);
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: rgba(255,255,255,.025);
+            font-size: .8rem;
+            color: #bdd1e2;
         }
 
-        .expand-btn:hover {
-            border-color: var(--accent-prime);
-            background: var(--surface-3);
+        .focus-item::before {
+            content: ">";
+            color: var(--accent);
+            font-family: "JetBrains Mono", monospace;
+            margin-right: 8px;
         }
 
-        .expand-btn.active i {
-            transform: rotate(180deg);
-        }
+        /* ---------------- FOOTER ---------------- */
 
-        /* language & publication row */
-        .info-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin: 2rem 0;
-            background: var(--surface-1);
-            border-radius: 2rem;
-            padding: 1.8rem;
-            border: 1px solid var(--border-soft);
-        }
-
-        .info-block {
-            flex: 1 1 200px;
-        }
-
-        .info-block h3 {
-            font-weight: 450;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent-second);
-        }
-
-        .info-block ul {
-            list-style: none;
-        }
-
-        .info-block li {
-            margin-bottom: 0.3rem;
-        }
-
-        .footer {
+        footer {
+            padding: 45px 0 60px;
+            color: #7590a5;
             text-align: center;
-            padding: 2.5rem 0 0.5rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-soft);
-            margin-top: 3.5rem;
-            font-size: 0.9rem;
+            font-size: .82rem;
         }
 
-        /* mobile fine-tuning */
-        @media (max-width: 600px) {
-            .profile-info h1 {
-                font-size: 2rem;
+        footer a {
+            color: #a8dcff;
+            text-decoration: none;
+        }
+
+        .signature {
+            font-family: "JetBrains Mono", monospace;
+            margin-top: 8px;
+            color: #6f879d;
+        }
+
+        @media (max-width: 980px) {
+            .hero-layout, .about-grid, .focus-grid {
+                grid-template-columns: 1fr;
             }
-            .handle {
-                font-size: 1rem;
+
+            .profile-panel {
+                max-width: 680px;
             }
-            .section-head h2 {
-                font-size: 1.6rem;
+
+            .skill-grid,
+            .cert-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            .skill-tile {
-                padding: 1.2rem;
+
+            .project-grid {
+                grid-template-columns: 1fr;
             }
-            .chip {
-                white-space: normal;
+        }
+
+        @media (max-width: 700px) {
+            .shell {
+                width: min(100% - 24px, 1240px);
             }
-            .profile-pic {
-                width: 100px;
-                height: 100px;
+
+            .topbar {
+                position: static;
+                margin-bottom: 40px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 22px;
+            }
+
+            .hero-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .skill-grid,
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .hero h1 {
+                font-size: clamp(3rem, 16vw, 4.7rem);
             }
         }
     </style>
 </head>
-<body>
-    <!-- anime moving background (petals, waves) -->
-    <div class="anime-canvas">
-        <div class="petal" style="left: 4%; top: -10%; animation-duration: 20s;"></div>
-        <div class="petal" style="left: 25%; animation-duration: 27s; animation-delay: 2s;"></div>
-        <div class="petal" style="left: 50%; animation-duration: 18s; animation-delay: 5s;"></div>
-        <div class="petal" style="left: 75%; animation-duration: 24s;"></div>
-        <div class="petal" style="left: 90%; animation-duration: 22s; animation-delay: 1s;"></div>
-        <div class="wave-stripe" style="top: 15%;"></div>
-        <div class="wave-stripe" style="top: 50%; width: 450px;"></div>
-        <div class="wave-stripe" style="top: 80%;"></div>
-        <div class="dot-haze" style="top: 30%; left: 10%;"></div>
-        <div class="dot-haze" style="top: 70%; left: 80%;"></div>
-    </div>
 
-    <div class="container">
-        <!-- theme toggle -->
-        <div class="top-actions">
-            <div class="theme-btn" id="themeToggle">
-                <i class="fas fa-moon"></i>
-                <span>闇 / 光</span>
-                <i class="fas fa-sun"></i>
+<body>
+<div class="shell">
+
+    <!-- ================= HERO ================= -->
+    <header class="hero" id="home">
+        <div class="topbar">
+            <div class="brand">
+                <span class="window-mark"></span>
+                <span>ROHAN // WINDOWS INFRASTRUCTURE</span>
+            </div>
+            <div class="status">
+                <span class="dot"></span>
+                <span>SYSTEM ONLINE</span>
             </div>
         </div>
 
-        <!-- profile card with actual profile picture -->
-        <div class="profile-card">
-            <img src="profile.png" alt="Rohan Das profile picture" class="profile-pic" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Crect%20width%3D%22120%22%20height%3D%22120%22%20fill%3D%22%23364553%22%2F%3E%3Ctext%20x%3D%2260%22%20y%3D%2270%22%20font-size%3D%2236%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f0b27a%22%20font-family%3D%22Inter%22%3ERD%3C%2Ftext%3E%3C%2Fsvg%3E');">
-            <div class="profile-info">
-                <h1>Rohan Das <span class="handle">3ls3if</span></h1>
-                <div class="tagline">System Administrator · アニメ好き</div>
-                <div class="contact-row">
-                    <a href="https://www.linkedin.com/in/iamrohandas/"><i class="fab fa-linkedin"></i> iamrohandas</a>
-                    <a href="mailto:rohan0x80@gmail.com"><i class="fas fa-envelope"></i> rohan0x80</a>
-                    <a href="https://github.com/3ls3if"><i class="fab fa-github"></i> 3ls3if</a>
+        <div class="hero-layout">
+            <div>
+                <div class="eyebrow">Microsoft 365 · Windows · Security · Automation</div>
+                <h1>Rohan<br><span>Das.</span></h1>
+
+                <p class="hero-subtitle">
+                    Windows Infrastructure Engineer and Microsoft 365 Administrator focused on
+                    enterprise infrastructure, security engineering, PowerShell automation,
+                    monitoring, auditing, migration, and practical IT tooling.
+                </p>
+
+                <div class="terminal-line">
+                    <span class="prompt">PS C:\Users\Rohan&gt;</span>
+                    Get-ProfessionalProfile
+                </div>
+
+                <div class="hero-actions">
+                    <a class="btn primary" href="https://github.com/3ls3if" target="_blank" rel="noreferrer">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a class="btn" href="https://www.linkedin.com/in/iamrohandas/" target="_blank" rel="noreferrer">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a class="btn" href="mailto:rohan0x80@gmail.com">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                </div>
+
+                <div class="hero-meta">
+                    <div class="metric">
+                        <strong>Windows Server</strong>
+                        <span>AD · DNS · IIS · Hyper-V</span>
+                    </div>
+                    <div class="metric">
+                        <strong>Microsoft 365</strong>
+                        <span>Entra · Exchange · Teams · Intune</span>
+                    </div>
+                    <div class="metric">
+                        <strong>Automation</strong>
+                        <span>PowerShell · Python · APIs</span>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="profile-panel">
+                <div class="window-controls">
+                    <i class="fas fa-circle"></i>
+                    <i class="fas fa-circle"></i>
+                    <i class="fas fa-circle"></i>
+                    <span style="margin-left:auto;font:500 .7rem 'JetBrains Mono';color:#6d879d;">profile.exe</span>
+                </div>
+
+                <img class="profile-photo" src="profile.png" alt="Rohan Das" onerror="this.style.display='none'">
+
+                <h2>Rohan Das</h2>
+                <p>
+                    Infrastructure administration, security operations, automation,
+                    compliance, cloud administration, virtualization, and troubleshooting.
+                </p>
+
+                <div class="mini-status">
+                    <div class="mini-row"><span>OS</span><b>WINDOWS SERVER</b></div>
+                    <div class="mini-row"><span>CORE</span><b>MICROSOFT 365</b></div>
+                    <div class="mini-row"><span>AUTOMATION</span><b>POWERSHELL</b></div>
+                    <div class="mini-row"><span>SECURITY</span><b>ACTIVE</b></div>
+                </div>
+            </aside>
+        </div>
+    </header>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about">
+        <div class="section-head">
+            <div class="section-title-wrap">
+                <small>01 // Profile</small>
+                <h2>About the Engineer</h2>
+            </div>
+            <p class="section-note">
+                Building reliable infrastructure first, then making it secure, observable, and easier to operate.
+            </p>
+        </div>
+
+        <div class="about-grid">
+            <div class="panel about-card">
+                <p>
+                    I work across Windows Server infrastructure, Microsoft 365, Active Directory,
+                    networking, virtualization, web hosting, databases, endpoint security,
+                    backup and recovery, and enterprise troubleshooting.
+                </p>
+                <br>
+                <p>
+                    My current work increasingly combines administration with engineering:
+                    building PowerShell tooling, infrastructure monitoring, DNS migration utilities,
+                    audit frameworks, evidence collection, automated reporting, and reusable
+                    operational workflows.
+                </p>
+                <br>
+                <p>
+                    The goal is simple: reduce manual effort, improve operational visibility,
+                    strengthen security, and make infrastructure easier to maintain.
+                </p>
+            </div>
+
+            <div class="panel terminal">
+                <div class="terminal-top">
+                    <span>Windows PowerShell</span>
+                    <span>read-only</span>
+                </div>
+                <div class="terminal-body">
+                    <div><span class="key">PS C:\&gt;</span> Get-Summary</div>
+                    <div><span class="key">Role</span> = <span class="value">"Windows Infrastructure Engineer"</span></div>
+                    <div><span class="key">Cloud</span> = <span class="value">"Microsoft 365 / Entra / Exchange"</span></div>
+                    <div><span class="key">Automation</span> = <span class="value">"PowerShell / Python / Graph API"</span></div>
+                    <div><span class="key">Security</span> = <span class="value">"Endpoint / Network / Identity / Hardening"</span></div>
+                    <div><span class="key">Audit</span> = <span class="value">"Evidence / Controls / Compliance / Reporting"</span></div>
+                    <div><span class="key">Status</span> = <span class="ok">"BUILDING"</span></div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- ===== UNIFIED CAPABILITIES ===== 
-             merged: original pentesting skills + full "SKILLS IN MY BUCKET" 
-             with ALL missing items appended (no omissions) -->
+    <!-- ================= CAPABILITIES ================= -->
+    <section id="capabilities">
         <div class="section-head">
-            <i class="fas fa-cog"></i>
-            <h2>Capabilities</h2>
-        </div>
-        <div class="skills-grid">
-            <!-- Infrastructure & Hardware -->
-            <div class="skill-tile"><h3><i class="fas fa-server"></i> Infra & Hardware</h3><div class="skill-cloud"><span class="chip">Hardware/Physical Machines</span><span class="chip">Hardware Devices</span><span class="chip">RAID Configs</span><span class="chip">Data Center Operations</span><span class="chip">HPE ProLiant iLO</span><span class="chip">Physical Networking</span></div></div>
-            <!-- Operating Systems -->
-            <div class="skill-tile"><h3><i class="fab fa-windows"></i> Operating Systems</h3><div class="skill-cloud"><span class="chip">Windows</span><span class="chip">Windows Server</span><span class="chip">Mac</span></div></div>
-            <!-- System Administration (full list) -->
-            <div class="skill-tile"><h3><i class="fas fa-cogs"></i> System Administration</h3><div class="skill-cloud"><span class="chip">System Configuration</span><span class="chip">Basic Configurations</span><span class="chip">Troubleshooting</span><span class="chip">Group Policy</span><span class="chip">Services</span><span class="chip">Task Scheduler</span><span class="chip">Auditing & Diagnostics</span><span class="chip">Event Viewer</span><span class="chip">Active Directory</span><span class="chip">Restrictions</span><span class="chip">PowerShell Scripts</span></div></div>
-            <!-- Virtualization & Cloud -->
-            <div class="skill-tile"><h3><i class="fas fa-cloud"></i> Virtualization & Cloud</h3><div class="skill-cloud"><span class="chip">Virtualization</span><span class="chip">Containers</span><span class="chip">AWS Environment</span><span class="chip">Azure Environment</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Docker Escape</span></div></div>
-            <!-- Networking (with firewalls) -->
-            <div class="skill-tile"><h3><i class="fas fa-network-wired"></i> Networking & Firewalls</h3><div class="skill-cloud"><span class="chip">Networking</span><span class="chip">VPNs & Proxy Servers</span><span class="chip">CDN Servers</span><span class="chip">Firewalls & Access Points</span><span class="chip">Windows Firewall</span><span class="chip">Sophos Firewall</span><span class="chip">Sophos AP</span><span class="chip">FortiGate Firewall</span><span class="chip">FortiAP</span><span class="chip">Cisco</span><span class="chip">Port Forwarding</span></div></div>
-            <!-- Security & Backup -->
-            <div class="skill-tile"><h3><i class="fas fa-shield-alt"></i> Security & Backup</h3><div class="skill-cloud"><span class="chip">Backup and Security</span><span class="chip">Malware Detection & Prevention</span><span class="chip">Email and Office 365</span><span class="chip">EDR</span><span class="chip">Acronis</span><span class="chip">Firewall Pentest</span></div></div>
-            <!-- Servers & Services -->
-            <div class="skill-tile"><h3><i class="fas fa-database"></i> Servers & Services</h3><div class="skill-cloud"><span class="chip">FTP Server</span><span class="chip">Web Servers</span><span class="chip">Database Servers</span></div></div>
-            <!-- Monitoring (full) -->
-            <div class="skill-tile"><h3><i class="fas fa-chart-line"></i> Monitoring</h3><div class="skill-cloud"><span class="chip">Monitoring</span><span class="chip">Server Monitoring Scripts</span><span class="chip">Prometheus</span><span class="chip">Grafana</span></div></div>
-            <!-- Migration (all items) -->
-            <div class="skill-tile"><h3><i class="fas fa-truck"></i> Migration</h3><div class="skill-cloud"><span class="chip">Drive Migration</span><span class="chip">Mail Migration</span><span class="chip">VM Migration</span><span class="chip">Website Migration</span><span class="chip">Database Migration</span></div></div>
-            <!-- Web & Development + IT Ops -->
-            <div class="skill-tile"><h3><i class="fas fa-code"></i> Web & IT Ops</h3><div class="skill-cloud"><span class="chip">Web Dev Stacks</span><span class="chip">IT Ticketing Systems</span><span class="chip">Control Panels</span><span class="chip">Plesk</span></div></div>
-            <!-- PENTEST: web app (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-bug"></i> Web App Pentest</h3><div class="skill-cloud"><span class="chip">XSS</span><span class="chip">SQLi</span><span class="chip">Command Injection</span><span class="chip">File Upload</span><span class="chip">IDOR</span><span class="chip">LFI</span><span class="chip">SSRF</span><span class="chip">GraphQL Inj</span><span class="chip">XXE</span><span class="chip">XPath Inj</span><span class="chip">WAF Bypass</span><span class="chip">Git Exposure</span><span class="chip">Webshells</span><span class="chip">Flask</span></div></div>
-            <!-- PENTEST: privesc & network (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-skull"></i> Privesc & Network Pentest</h3><div class="skill-cloud"><span class="chip">Windows PrivEsc</span><span class="chip">Linux PrivEsc</span><span class="chip">Exploit Suggester</span><span class="chip">Linux Exploit Dev</span><span class="chip">Enumeration</span><span class="chip">Brute Force</span><span class="chip">Post Exploit</span><span class="chip">Firewall Pentest</span></div></div>
-            <!-- AD & red team (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-dungeon"></i> AD & Red Team</h3><div class="skill-cloud"><span class="chip">AD Pentesting</span><span class="chip">AD Post-Exploit</span><span class="chip">C2 (Havoc/Sliver/Mythic/Villain)</span><span class="chip">C2 Redirector</span><span class="chip">Initial Access</span><span class="chip">Evasion</span><span class="chip">Frameworks</span></div></div>
-            <!-- Container & cloud pentest (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-dharmachakra"></i> Container & Cloud Pentest</h3><div class="skill-cloud"><span class="chip">Docker Pentest</span><span class="chip">K8s Pentest</span><span class="chip">Container Escape</span><span class="chip">Docker CVEs</span><span class="chip">Cloud Pentest</span><span class="chip">C2 in Cloud</span></div></div>
-            <!-- IoT & embedded (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-microchip"></i> IoT & Embedded</h3><div class="skill-cloud"><span class="chip">IoT Enum</span><span class="chip">Dissect Devices</span><span class="chip">Firmware Analysis</span><span class="chip">Emulation</span><span class="chip">Drone Pentest</span><span class="chip">Automotive</span><span class="chip">Virtual CAN</span><span class="chip">Vending Machines</span></div></div>
-            <!-- Cisco / smart city (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-city"></i> Infra Special</h3><div class="skill-cloud"><span class="chip">Cisco Attacks</span><span class="chip">Cisco-Torch</span><span class="chip">Password Attack Type5</span><span class="chip">Smart City Pentest</span><span class="chip">Protocol Exploitation</span></div></div>
-            <!-- Reversing & malware (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-recycle"></i> Reversing & Malware</h3><div class="skill-cloud"><span class="chip">Reverse Engineering</span><span class="chip">Ghidra</span><span class="chip">Malware Analysis</span><span class="chip">Dynamic Analysis</span><span class="chip">Exploit Dev Tools</span></div></div>
-            <!-- Web3 & appsec (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-link"></i> Web3 & Appsec</h3><div class="skill-cloud"><span class="chip">Web3 Vulns</span><span class="chip">Smart Contract Audit</span><span class="chip">API Testing</span><span class="chip">OWASP Top10</span><span class="chip">Authentication Bypass</span></div></div>
-            <!-- DFIR / GRC / threat hunting (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-shield-halved"></i> DFIR & GRC</h3><div class="skill-cloud"><span class="chip">Digital Forensics</span><span class="chip">Incident Response</span><span class="chip">CISA Playbook</span><span class="chip">Threat Hunting</span><span class="chip">GRC Frameworks</span><span class="chip">APT Research</span></div></div>
-            <!-- Methodology / mindmaps / research (existing) -->
-            <div class="skill-tile"><h3><i class="fas fa-map"></i> Methodology & Research</h3><div class="skill-cloud"><span class="chip">CEH Mindmaps</span><span class="chip">CND Mindmaps</span><span class="chip">Hacking Cheatsheets</span><span class="chip">PenTesting Book</span><span class="chip">Vulnerability Research</span><span class="chip">CVE Research</span><span class="chip">Tunneling & Exfiltration</span></div></div>
-        </div>
-
-        <!-- experience (CloudTechtiq) -->
-        <div class="section-head"><i class="fas fa-briefcase"></i><h2>Experience</h2></div>
-        <div class="timeline-card">
-            <div class="card-left">Dec 2024 – Present</div>
-            <div class="card-right">
-                <h3>Windows System Administrator</h3>
-                <div class="meta-line">CloudTechtiq Technologies · Full-time · On-site (Jaipur)</div>
-                <div class="desc">1 yr 3 mos · Windows System Administration, Troubleshooting, and Infrastructure Support.</div>
-                <div class="minichips"><span class="minichip">Windows Server</span><span class="minichip">Active Directory</span><span class="minichip">PowerShell</span></div>
+            <div class="section-title-wrap">
+                <small>02 // Capabilities</small>
+                <h2>Technical Capability Map</h2>
             </div>
         </div>
 
-        <!-- education (corrected) -->
-        <div class="section-head"><i class="fas fa-graduation-cap"></i><h2>Formation</h2></div>
-        <div class="timeline-card"><div class="card-left">Jul 2023 – Jul 2025</div><div class="card-right"><h3>JECRC University · MCA Cyber Security</h3><div class="meta-line">Grade 8.49 · Cyber Security club</div><div class="minichips"><span class="minichip">Java</span><span class="minichip">C</span><span class="minichip">C++</span><span class="minichip">Salesforce</span></div></div></div>
-        <div class="timeline-card"><div class="card-left">Jun 2020 – Jun 2023</div><div class="card-right"><h3>Girijananda Chowdhury University · BCA Information Technology</h3><div class="meta-line">Grade 8.86 · ML, AWS, JS, MongoDB</div></div></div>
-        <div class="timeline-card"><div class="card-left">Feb 2020 – Dec 2022</div><div class="card-right"><h3>NINT · Hardware & Network Engineering</h3><div class="meta-line">Grade A · AD, Network Admin</div></div></div>
+        <div class="skill-grid">
+            <article class="panel skill-card">
+                <h3><i class="fab fa-microsoft"></i> Microsoft 365</h3>
+                <div class="chips">
+                    <span class="chip">Exchange Online</span><span class="chip">Teams</span><span class="chip">SharePoint</span>
+                    <span class="chip">OneDrive</span><span class="chip">Entra ID</span><span class="chip">Intune</span>
+                    <span class="chip">Purview</span><span class="chip">Graph API</span><span class="chip">Conditional Access</span>
+                    <span class="chip">Exchange Hybrid</span><span class="chip">Tenant Migration</span><span class="chip">Licensing</span>
+                    <span class="chip">Mail Flow</span><span class="chip">SPF</span><span class="chip">DKIM</span><span class="chip">DMARC</span>
+                </div>
+            </article>
 
-        <!-- certifications (visible + expand) -->
-        <div class="section-head"><i class="fas fa-certificate"></i><h2>Credentials</h2></div>
-        <div class="certs-mini" id="visibleCerts">
-            <div class="cert-item"><i class="fas fa-shield"></i> Proxmox VE 9 (Feb '26)</div>
-            <div class="cert-item"><i class="fas fa-shield"></i> MS‑102 M365 Expert (Sep '25)</div>
-            <div class="cert-item"><i class="fas fa-shield"></i> Plesk Obsidian Pro</div>
-            <div class="cert-item"><i class="fas fa-shield"></i> Acronis Advanced Security</div>
-            <div class="cert-item"><i class="fas fa-shield"></i> CEH (Master) · EC‑Council</div>
-            <div class="cert-item"><i class="fas fa-shield"></i> CND · CEH Practical</div>
+            <article class="panel skill-card">
+                <h3><i class="fab fa-windows"></i> Windows Infrastructure</h3>
+                <div class="chips">
+                    <span class="chip">Server 2016</span><span class="chip">Server 2019</span><span class="chip">Server 2022</span>
+                    <span class="chip">Server 2025</span><span class="chip">AD DS</span><span class="chip">GPO</span>
+                    <span class="chip">DNS</span><span class="chip">DHCP</span><span class="chip">AD CS</span><span class="chip">AD FS</span>
+                    <span class="chip">IIS</span><span class="chip">WDS</span><span class="chip">RDP</span><span class="chip">Event Logs</span>
+                    <span class="chip">Hardening</span><span class="chip">Patch Management</span>
+                </div>
+            </article>
+
+            <article class="panel skill-card">
+                <h3><i class="fas fa-shield-halved"></i> Security Engineering</h3>
+                <div class="chips">
+                    <span class="chip">Defender</span><span class="chip">Sophos</span><span class="chip">CrowdStrike</span>
+                    <span class="chip">Wazuh</span><span class="chip">MFA</span><span class="chip">EDR</span>
+                    <span class="chip">Threat Hunting</span><span class="chip">Incident Response</span><span class="chip">IOC Analysis</span>
+                    <span class="chip">Web Shell Detection</span><span class="chip">RDP Hardening</span><span class="chip">Least Privilege</span>
+                    <span class="chip">Vulnerability Assessment</span>
+                </div>
+            </article>
+
+            <article class="panel skill-card">
+                <h3><i class="fas fa-network-wired"></i> Networking</h3>
+                <div class="chips">
+                    <span class="chip">TCP/IP</span><span class="chip">Routing</span><span class="chip">Switching</span>
+                    <span class="chip">VLAN</span><span class="chip">VPN</span><span class="chip">Cisco Catalyst</span>
+                    <span class="chip">Cisco ISR</span><span class="chip">FortiGate</span><span class="chip">Wireshark</span>
+                    <span class="chip">IDS/IPS</span><span class="chip">DNS Security</span><span class="chip">Mail Flow</span>
+                </div>
+            </article>
+
+            <article class="panel skill-card">
+                <h3><i class="fas fa-cloud"></i> Cloud / Edge Security</h3>
+                <div class="chips">
+                    <span class="chip">Cloudflare</span><span class="chip">CDN</span><span class="chip">WAF</span>
+                    <span class="chip">Reverse Proxy</span><span class="chip">SSL/TLS</span><span class="chip">DNS</span>
+                    <span class="chip">F5 BIG-IP</span><span class="chip">LTM</span><span class="chip">AWAF Fundamentals</span>
+                </div>
+            </article>
+
+            <article class="panel skill-card">
+                <h3><i class="fas fa-server"></i> Virtualization / DR</h3>
+                <div class="chips">
+                    <span class="chip">Hyper-V</span><span class="chip">Proxmox VE</span><span class="chip">VMware Workstation</span>
+                    <span class="chip">VirtualBox</span><span class="chip">VM Migration</span><span class="chip">Backup / Restore</span>
+                    <span class="chip">Acronis</span><span class="chip">Disaster Recovery</span>
+                </div>
+            </article>
+
+            <article class="panel skill-card">
+                <h3><i class="fas fa-code"></i> Automation / Development</h3>
+                <div class="chips">
+                    <span class="chip">PowerShell</span><span class="chip">Python</span><span class="chip">Bash</span>
+                    <span class="chip">REST API</span><span class="chip">Graph API</span><span class="chip">Scheduled Tasks</span>
+                    <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Node.js</span>
+                    <span class="chip">React</span><span class="chip">PHP</span><span class="chip">Laravel</span><span class="chip">.NET</span>
+                </div>
+            </article>
+
+            <article class="panel skill-card">
+                <h3><i class="fas fa-database"></i> Databases / Web</h3>
+                <div class="chips">
+                    <span class="chip">SQL Server</span><span class="chip">MySQL</span><span class="chip">MariaDB</span>
+                    <span class="chip">PostgreSQL</span><span class="chip">SQLite</span><span class="chip">IIS</span>
+                    <span class="chip">Apache</span><span class="chip">Tomcat</span><span class="chip">Plesk</span>
+                    <span class="chip">win-acme</span><span class="chip">OpenSSL</span>
+                </div>
+            </article>
+
+            <article class="panel skill-card">
+                <h3><i class="fas fa-chart-line"></i> Monitoring / Observability</h3>
+                <div class="chips">
+                    <span class="chip">CPU Monitoring</span><span class="chip">Memory Monitoring</span><span class="chip">Disk Monitoring</span>
+                    <span class="chip">Network Monitoring</span><span class="chip">TCP Connections</span><span class="chip">Service Monitoring</span>
+                    <span class="chip">IIS Monitoring</span><span class="chip">SQL Monitoring</span><span class="chip">Event Logs</span>
+                    <span class="chip">Prometheus</span><span class="chip">Windows Exporter</span>
+                </div>
+            </article>
         </div>
-        <div class="hidden-content" id="hiddenCerts">
-            <div class="certs-mini">
-                <div class="cert-item"><i class="fas fa-shield"></i> Acronis Cloud Tech Associate Advanced Backup</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Troubleshooting Network Connectivity (LinkedIn)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Automation with Python & PowerShell (LinkedIn)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Google Workspace Admin (LinkedIn)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> CEH (Practical) EC‑Council</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Cybersecurity Foundations GRC (LinkedIn)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Advanced Malware Analysis Redux</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Cisco Networking Foundations (Switching/Routing)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Advanced Cyber Threat Intelligence</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Pen Testing Web Apps with Kali & Burp</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Ethical Hacking with JavaScript</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Smart Contract Security (LinkedIn)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Dynamic Application Security Testing</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Modern Threat Hunting Strategies</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Advanced Threat Hunting on AD</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Threat Hunting: Network Data</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> AIG Shields Up (Forage)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Telstra Cyber Job Sim</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Tata Group Cyber Analyst</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Building Ubuntu Server (LinkedIn)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Complete Ethical Hacking Bootcamp (ZTM)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Advanced Pen Testing AD</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Privileged Access Management</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Stealth Pen Testing</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Android App Security (LinkedIn)</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Pen Testing with Metasploit</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Intro to MITRE ATT&CK</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> SIEM with Splunk</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> Wireshark Malware Forensics</div>
-                <div class="cert-item"><i class="fas fa-shield"></i> OWASP Top 10 (LinkedIn)</div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects">
+        <div class="section-head">
+            <div class="section-title-wrap">
+                <small>03 // Projects</small>
+                <h2>Selected Engineering Work</h2>
+            </div>
+            <p class="section-note">
+                Projects focused on solving practical infrastructure, monitoring, migration, security, and audit problems.
+            </p>
+        </div>
+
+        <div class="project-grid">
+            <article class="panel project">
+                <div class="project-label">01 · Audit Engineering</div>
+                <h3>DLSAR Infrastructure Audit Framework</h3>
+                <p>
+                    Reusable audit framework combining PowerShell and Python for evidence collection,
+                    security assessment, configurable controls, SHA-256 evidence manifests,
+                    traceability, and automated report generation.
+                </p>
+                <div class="chips">
+                    <span class="chip">PowerShell</span><span class="chip">Python</span><span class="chip">Compliance</span>
+                    <span class="chip">Evidence Collection</span><span class="chip">Audit Automation</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/3ls3if/DLSAR_Audit_Framework" target="_blank" rel="noreferrer">View repository →</a>
+                </div>
+            </article>
+
+            <article class="panel project">
+                <div class="project-label">02 · Infrastructure Tooling</div>
+                <h3>Windows DNS Migration Toolkit</h3>
+                <p>
+                    PowerShell-based toolkit designed to simplify Windows DNS migration and administration,
+                    including zone export, record collection, configuration analysis, migration assistance,
+                    and evidence collection.
+                </p>
+                <div class="chips">
+                    <span class="chip">PowerShell</span><span class="chip">DNS</span><span class="chip">Windows Server</span>
+                    <span class="chip">Migration</span><span class="chip">Automation</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/3ls3if/Windows-DNS-Migration-Toolkit" target="_blank" rel="noreferrer">View repository →</a>
+                </div>
+            </article>
+
+            <article class="panel project">
+                <div class="project-label">03 · Monitoring</div>
+                <h3>Enterprise Server Monitoring Platform</h3>
+                <p>
+                    Cross-platform monitoring concept using React, Node.js, PowerShell, SQLite, and Bash
+                    for CPU, memory, disk, network, TCP connections, Windows services, IIS, event logs,
+                    agents, configuration, and dashboard reporting.
+                </p>
+                <div class="chips">
+                    <span class="chip">React</span><span class="chip">Node.js</span><span class="chip">PowerShell</span>
+                    <span class="chip">SQLite</span><span class="chip">Bash</span>
+                </div>
+            </article>
+
+            <article class="panel project">
+                <div class="project-label">04 · Security Automation</div>
+                <h3>Windows Server Security Audit Toolkit</h3>
+                <p>
+                    PowerShell-based auditing solution for firewall configuration, SMB exposure,
+                    antivirus detection, RDP configuration, local administrator review, event logs,
+                    and executive reporting.
+                </p>
+                <div class="chips">
+                    <span class="chip">PowerShell</span><span class="chip">Security Audit</span><span class="chip">Hardening</span>
+                    <span class="chip">Event Logs</span><span class="chip">HTML Reporting</span>
+                </div>
+            </article>
+
+            <article class="panel project">
+                <div class="project-label">05 · Monitoring</div>
+                <h3>Windows Server Health Dashboard</h3>
+                <p>
+                    PowerShell-based health and performance dashboard covering CPU, memory, disk,
+                    user sessions, IIS, SQL Server, services, historical reporting, and alerts.
+                </p>
+                <div class="chips">
+                    <span class="chip">PowerShell</span><span class="chip">HTML</span><span class="chip">Performance</span>
+                    <span class="chip">IIS</span><span class="chip">SQL Server</span>
+                </div>
+            </article>
+
+            <article class="panel project">
+                <div class="project-label">06 · Cloud Administration</div>
+                <h3>Microsoft 365 Automation Toolkit</h3>
+                <p>
+                    Administration automation for user provisioning, licensing, mailbox management,
+                    Exchange reporting, Teams, SharePoint, Intune reporting, bulk operations,
+                    tenant reporting, and Microsoft Graph workflows.
+                </p>
+                <div class="chips">
+                    <span class="chip">PowerShell</span><span class="chip">Graph API</span><span class="chip">Exchange</span>
+                    <span class="chip">Entra ID</span><span class="chip">Microsoft 365</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience">
+        <div class="section-head">
+            <div class="section-title-wrap">
+                <small>04 // Experience</small>
+                <h2>Professional Experience</h2>
             </div>
         </div>
-        <div style="display: flex; justify-content: center;">
-            <div class="expand-btn" id="expandCertsBtn" onclick="toggleCerts()">
-                <i class="fas fa-chevron-down" id="expandIcon"></i>
-                <span id="expandText">show more credentials</span>
+
+        <div class="timeline">
+            <article class="panel timeline-item">
+                <div class="timeline-date">DEC 2024 — PRESENT</div>
+                <div class="timeline-content">
+                    <h3>Windows System Administrator</h3>
+                    <div class="meta">CloudTechtiq Technologies · Jaipur</div>
+                    <p>
+                        Windows Server administration, troubleshooting, Microsoft 365 support,
+                        infrastructure operations, security tooling, automation, monitoring,
+                        migration activities, backup and recovery, and enterprise support workflows.
+                    </p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ================= EDUCATION ================= -->
+    <section id="education">
+        <div class="section-head">
+            <div class="section-title-wrap">
+                <small>05 // Education</small>
+                <h2>Education</h2>
             </div>
         </div>
 
-        <!-- projects (visible + expand) -->
-        <div class="section-head"><i class="fas fa-code"></i><h2>Projects・攻防</h2></div>
-        <div id="visibleProjects">
-            <div class="timeline-card"><div class="card-left">Dec 2025 · present</div><div class="card-right"><h3>Windows Server Auditor (PowerShell)</h3><div class="desc">HTML reports, security audit</div><a class="project-link" href="https://github.com/3ls3if/Windows-Server-Audit-Script">github</a><div class="minichips"><span class="minichip">PowerShell</span></div></div></div>
-            <div class="timeline-card"><div class="card-left">Sep 2024 · present</div><div class="card-right"><h3>Forensics Credential Harvester</h3><div class="desc">Browser credential recovery (forensics)</div><a class="project-link" href="https://github.com/3ls3if/Forensics-Credential-Harvester">github</a></div></div>
-            <div class="timeline-card"><div class="card-left">Jul 2024 · present</div><div class="card-right"><h3>Code Keyword Extractor (ML)</h3><div class="desc">ML + AST keyword classification</div><a class="project-link" href="https://github.com/3ls3if/Code-Keyword-Extraction-Tool--CKET">github</a></div></div>
+        <div class="timeline">
+            <article class="panel timeline-item">
+                <div class="timeline-date">2023 — 2025</div>
+                <div class="timeline-content">
+                    <h3>MCA — Cyber Security</h3>
+                    <div class="meta">JECRC University</div>
+                    <p>Academic focus around cybersecurity, systems, development, and infrastructure technologies.</p>
+                </div>
+            </article>
+
+            <article class="panel timeline-item">
+                <div class="timeline-date">2020 — 2023</div>
+                <div class="timeline-content">
+                    <h3>BCA — Information Technology</h3>
+                    <div class="meta">Girijananda Chowdhury University</div>
+                    <p>Foundation in software, computing, networking, databases, and information technology.</p>
+                </div>
+            </article>
+
+            <article class="panel timeline-item">
+                <div class="timeline-date">2020 — 2022</div>
+                <div class="timeline-content">
+                    <h3>Hardware & Network Engineering</h3>
+                    <div class="meta">NINT</div>
+                    <p>Hands-on foundations in system administration, networking, and Active Directory.</p>
+                </div>
+            </article>
         </div>
-        <div class="hidden-content" id="hiddenProjects">
-            <div class="timeline-card"><div class="card-left">Jun 2024 · present</div><div class="card-right"><h3>Recon Auditor</h3><div class="desc">Python recon & public infra auditing</div><a class="project-link" href="https://github.com/3ls3if/Recon-Auditor">github</a></div></div>
-            <div class="timeline-card"><div class="card-left">Jun 2024 · present</div><div class="card-right"><h3>Source Code Analyzer (ML)</h3><div class="desc">ML vulnerability scanner</div><a class="project-link" href="https://github.com/3ls3if/Source-Code-Analyzer">github</a></div></div>
-            <div class="timeline-card"><div class="card-left">Jan 2025 - Jun 2025</div><div class="card-right"><h3>Backup Manager (Java)</h3><div class="desc">Cloud backup with OAuth (GDrive/OneDrive)</div></div></div>
-            <div class="timeline-card"><div class="card-left">Jun 2024</div><div class="card-right"><h3>Web Scraper for Info Gathering</h3><div class="desc">Website data extraction</div><a class="project-link" href="https://github.com/3ls3if/Scrape-2-Rule-Em.git">github</a></div></div>
-            <div class="timeline-card"><div class="card-left">Jun 2022 - Nov 2022</div><div class="card-right"><h3>Secure Text Transfer System</h3><div class="desc">Encrypted messaging (AWS, Node.js)</div><a class="project-link" href="https://github.com/3ls3if/Secure-Text-Transfer">github</a></div></div>
-        </div>
-        <div style="display: flex; justify-content: center;">
-            <div class="expand-btn" id="expandProjectsBtn" onclick="toggleProjects()">
-                <i class="fas fa-chevron-down" id="expandProjectsIcon"></i>
-                <span id="expandProjectsText">show more projects</span>
+    </section>
+
+    <!-- ================= CERTIFICATIONS ================= -->
+    <section id="certifications">
+        <div class="section-head">
+            <div class="section-title-wrap">
+                <small>06 // Credentials</small>
+                <h2>Certifications</h2>
             </div>
         </div>
 
-        <!-- languages & publications -->
-        <div class="info-row">
-            <div class="info-block"><h3><i class="fas fa-globe"></i> Languages</h3><ul><li> English </li><li> हिंदी </li><li> অসমীয়া </li></ul></div>
-            <div class="info-block"><h3><i class="fas fa-feather"></i> Publications</h3><p>📘 System Admin Book (Dec 2024)</p><p style="margin-top:0.5rem;">📄 CEH / CND Mindmaps</p></div>
-            <div class="info-block"><h3><i class="fas fa-infinity"></i> Research</h3><p>APT · Threat Hunting · CISA IR</p></div>
+        <div class="cert-grid">
+            <div class="panel cert">
+                <i class="fas fa-certificate"></i>
+                <div><strong>Microsoft 365 Administrator Expert (MS-102)</strong><span>Microsoft</span></div>
+            </div>
+            <div class="panel cert">
+                <i class="fas fa-certificate"></i>
+                <div><strong>Certified Ethical Hacker (CEH Master)</strong><span>EC-Council</span></div>
+            </div>
+            <div class="panel cert">
+                <i class="fas fa-certificate"></i>
+                <div><strong>Certified Network Defender (CND)</strong><span>EC-Council</span></div>
+            </div>
+            <div class="panel cert">
+                <i class="fas fa-certificate"></i>
+                <div><strong>Plesk Obsidian Professional</strong><span>Plesk</span></div>
+            </div>
+            <div class="panel cert">
+                <i class="fas fa-certificate"></i>
+                <div><strong>Acronis Cloud Tech Associate</strong><span>Acronis</span></div>
+            </div>
+            <div class="panel cert">
+                <i class="fas fa-certificate"></i>
+                <div><strong>Additional Security & Administration Training</strong><span>Multiple platforms</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CURRENT FOCUS ================= -->
+    <section id="focus">
+        <div class="section-head">
+            <div class="section-title-wrap">
+                <small>07 // Current Build</small>
+                <h2>What I'm Building Next</h2>
+            </div>
         </div>
 
-        <!-- footer -->
-        <div class="footer">
-            <i class="fas fa-dragon"></i> 継続は力なり ·  Made with ❤️ by 3ls3if (Me) <i class="fas fa-dragon"></i><br>
-            <span style="opacity:0.5;">・Be Vigilant・無限の技能</span>
+        <div class="panel focus">
+            <div class="focus-grid">
+                <div class="focus-main">
+                    <h3>From administration to infrastructure engineering</h3>
+                    <p>
+                        The current direction is to build deeper automation around Windows,
+                        Microsoft 365, security, observability, cloud networking, and audit workflows.
+                        The emphasis is on reusable tools rather than one-off scripts.
+                    </p>
+                </div>
+
+                <div class="focus-list">
+                    <div class="focus-item">Advanced PowerShell Automation</div>
+                    <div class="focus-item">Microsoft Graph & Microsoft 365 Security</div>
+                    <div class="focus-item">Cloudflare / WAF / Edge Security</div>
+                    <div class="focus-item">F5 BIG-IP / LTM / AWAF</div>
+                    <div class="focus-item">Infrastructure as Code</div>
+                    <div class="focus-item">Vulnerability & Compliance Automation</div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <script>
-        // theme toggle
-        const toggle = document.getElementById('themeToggle');
-        const body = document.body;
-        if (localStorage.getItem('animeTheme') === 'light') body.classList.add('light');
-        toggle.addEventListener('click', ()=>{
-            body.classList.toggle('light');
-            localStorage.setItem('animeTheme', body.classList.contains('light') ? 'light' : 'dark');
-        });
+    <!-- ================= CONTACT ================= -->
+    <footer>
+        <div>
+            <a href="https://github.com/3ls3if" target="_blank" rel="noreferrer">GitHub</a>
+            ·
+            <a href="https://www.linkedin.com/in/iamrohandas/" target="_blank" rel="noreferrer">LinkedIn</a>
+            ·
+            <a href="mailto:rohan0x80@gmail.com">Email</a>
+        </div>
 
-        // expand/collapse for certifications
-        function toggleCerts() {
-            const hidden = document.getElementById('hiddenCerts');
-            const icon = document.getElementById('expandIcon');
-            const text = document.getElementById('expandText');
-            if (hidden.style.display === 'none' || hidden.style.display === '') {
-                hidden.style.display = 'block';
-                icon.style.transform = 'rotate(180deg)';
-                text.innerText = 'show less credentials';
-            } else {
-                hidden.style.display = 'none';
-                icon.style.transform = 'rotate(0deg)';
-                text.innerText = 'show more credentials';
-            }
-        }
+        <div class="signature">PS C:\Users\Rohan&gt; Write-Host "Keep building. Keep securing. Keep automating."</div>
+    </footer>
 
-        // expand/collapse for projects
-        function toggleProjects() {
-            const hidden = document.getElementById('hiddenProjects');
-            const icon = document.getElementById('expandProjectsIcon');
-            const text = document.getElementById('expandProjectsText');
-            if (hidden.style.display === 'none' || hidden.style.display === '') {
-                hidden.style.display = 'block';
-                icon.style.transform = 'rotate(180deg)';
-                text.innerText = 'show less projects';
-            } else {
-                hidden.style.display = 'none';
-                icon.style.transform = 'rotate(0deg)';
-                text.innerText = 'show more projects';
-            }
-        }
-
-        // initialize hidden sections
-        document.getElementById('hiddenCerts').style.display = 'none';
-        document.getElementById('hiddenProjects').style.display = 'none';
-    </script>
+</div>
 </body>
 </html>
