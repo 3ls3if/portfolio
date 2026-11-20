@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#07111f">
+    <meta name="theme-color" content="#f4f0e6">
     <meta name="description" content="Rohan Das — Microsoft 365 Administrator, Windows Infrastructure Engineer, Security & Automation Engineer.">
-    <title>Rohan Das | Windows Infrastructure & Security Engineering</title>
+    <title>Rohan Das | Infrastructure & Security Engineer</title>
 
     <!-- Microsoft-inspired icons / clean typography -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -673,7 +673,148 @@
                 font-size: clamp(3rem, 16vw, 4.7rem);
             }
         }
-    </style>
+    
+/* ================= NEO-BRUTALIST REDESIGN ================= */
+:root {
+    --bg: #f4f0e6;
+    --bg-soft: #fffdf7;
+    --panel: #fffdf7;
+    --panel-2: #f1eadb;
+    --text: #171717;
+    --muted: #4e4b45;
+    --line: #171717;
+    --accent: #ff5b35;
+    --accent-2: #c8f169;
+    --success: #237a43;
+    --warning: #f0b429;
+    --danger: #d83a3a;
+    --glow: transparent;
+    --shadow: 7px 7px 0 #171717;
+    --radius: 0px;
+}
+html { scroll-behavior: smooth; }
+body {
+    color: var(--text);
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(rgba(23,23,23,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23,23,23,.055) 1px, transparent 1px);
+    background-size: 26px 26px;
+    font-family: "Inter", Arial, sans-serif;
+    line-height: 1.6;
+}
+body::before { display: none; }
+.shell { width: min(1240px, calc(100% - 44px)); }
+.hero { min-height: 88vh; padding-top: 36px; }
+.hero::after {
+    width: 420px; height: 420px; border-radius: 0;
+    border: 3px solid #171717; box-shadow: 14px 14px 0 #c8f169;
+    transform: rotate(8deg); top: 12%; right: -100px; opacity: .8;
+}
+.topbar {
+    color: #171717; font-weight: 800; text-transform: uppercase;
+    letter-spacing: .08em; font-size: .72rem;
+}
+.window-mark { background: var(--accent); box-shadow: 14px 0 #171717, 0 14px #c8f169, 14px 14px #171717; }
+.dot { background: #237a43; box-shadow: 0 0 0 4px rgba(35,122,67,.15); }
+.eyebrow, .section-title-wrap small, .project-label, .timeline-date {
+    color: #d94321; font-weight: 800;
+}
+.hero h1 {
+    color: #171717; font-weight: 900; letter-spacing: -.075em;
+    text-transform: uppercase;
+}
+.hero h1 span {
+    color: var(--accent); -webkit-text-stroke: 0;
+    text-shadow: 4px 4px 0 #171717;
+}
+.hero-subtitle { color: #3f3b35; font-weight: 500; }
+.terminal-line { color: #171717; font-weight: 700; }
+.terminal-line .prompt { color: #d94321; }
+.btn {
+    border: 2px solid #171717; border-radius: 0; color: #171717;
+    background: #fffdf7; box-shadow: 4px 4px 0 #171717;
+    padding: 12px 18px; font-weight: 800; text-transform: uppercase;
+    font-size: .78rem; letter-spacing: .035em;
+}
+.btn.primary {
+    background: var(--accent-2); color: #171717;
+    border: 2px solid #171717; box-shadow: 4px 4px 0 #171717;
+}
+.btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 #171717; }
+.metric, .profile-panel, .panel {
+    color: #171717; background: #fffdf7; border: 2px solid #171717;
+    border-radius: 0; box-shadow: 6px 6px 0 #171717;
+    backdrop-filter: none;
+}
+.metric:nth-child(2) { background: #c8f169; }
+.metric:nth-child(3) { background: #ffb7a5; }
+.metric strong { font-weight: 900; }
+.metric span, .profile-panel p, .about-card p, .project p,
+.timeline-content p, .focus-main p, .section-note { color: #4e4b45; }
+.profile-panel {
+    background: #ffb7a5; padding: 25px;
+    transform: rotate(1deg);
+}
+.profile-panel::before { display: none; }
+.profile-photo {
+    border: 3px solid #171717; border-radius: 0;
+    box-shadow: 6px 6px 0 #171717;
+}
+.profile-panel h2 { font-weight: 900; text-transform: uppercase; }
+.mini-row { color: #34312c; border-top: 2px solid #171717; }
+.mini-row b { color: #176b38; font-weight: 900; }
+section { padding: 42px 0; }
+.section-title-wrap h2 {
+    font-weight: 900; text-transform: uppercase;
+    letter-spacing: -.055em;
+}
+.section-title-wrap small { letter-spacing: .12em; }
+.about-card, .skill-card, .project, .timeline-item, .cert, .focus { padding: 22px; }
+.skill-card:nth-child(3n+1) { background: #fffdf7; }
+.skill-card:nth-child(3n+2) { background: #e8f5c8; }
+.skill-card:nth-child(3n) { background: #ffddd2; }
+.skill-card h3, .project h3, .timeline-content h3, .focus-main h3 {
+    color: #171717; font-weight: 900; text-transform: uppercase;
+}
+.skill-card h3 i { color: #d94321; }
+.chip {
+    color: #171717; border: 1.5px solid #171717; border-radius: 0;
+    background: #fffdf7; font-weight: 700; padding: 5px 9px;
+}
+.project { background: #fffdf7; }
+.project:nth-child(4n+2) { background: #c8f169; }
+.project:nth-child(4n+3) { background: #ffddd2; }
+.project:nth-child(4n+4) { background: #dcecff; }
+.project::after { display: none; }
+.project-label { color: #d94321; font-weight: 900; }
+.project-links a, footer a { color: #a52e16; font-weight: 900; text-decoration: underline; text-underline-offset: 3px; }
+.timeline-item { background: #fffdf7; }
+.timeline-date { color: #d94321; font-weight: 900; }
+.timeline-content .meta { color: #5a554e; font-weight: 700; }
+.cert { background: #fffdf7; }
+.cert i { color: #d94321; }
+.focus { background: #171717; color: #fffdf7; border-color: #171717; box-shadow: 7px 7px 0 #ff5b35; }
+.focus .focus-main h3 { color: #c8f169; }
+.focus .focus-main p { color: #e4dfd5; }
+.focus-item { color: #fffdf7; border: 1.5px solid #fffdf7; border-radius: 0; background: #292929; }
+.focus-item::before { color: #c8f169; }
+.terminal { background: #171717; border: 2px solid #171717; box-shadow: 6px 6px 0 #c8f169; }
+.terminal-top { background: #292929; color: #c8f169; border-bottom: 1px solid #fffdf7; }
+.terminal-body { color: #fffdf7; }
+.terminal-body .key { color: #c8f169; }
+.terminal-body .value { color: #fffdf7; }
+.terminal-body .ok { color: #8fe0a9; }
+footer { color: #4e4b45; }
+.signature { color: #6b6258; }
+@media (max-width: 700px) {
+    .shell { width: min(100% - 24px, 1240px); }
+    .hero::after { width: 220px; height: 220px; right: -125px; top: 20%; }
+    .profile-panel { transform: none; }
+    .hero h1 span { text-shadow: 3px 3px 0 #171717; }
+}
+
+</style>
 </head>
 
 <body>
@@ -1302,7 +1443,7 @@
     <!-- ================= CONTACT ================= -->
     <footer>
         <div>
-            <a href="https://github.com/3ls3if" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://github.com/3ls3" target="_blank" rel="noreferrer">GitHub</a>
             ·
             <a href="https://rohan.us.ci" target="_blank" rel="noreferrer">Blog</a>
             ·
